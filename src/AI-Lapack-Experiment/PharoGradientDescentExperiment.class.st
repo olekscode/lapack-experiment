@@ -1,17 +1,17 @@
 Class {
-	#name : #LapackGradientDescentExperiment,
+	#name : #PharoGradientDescentExperiment,
 	#superclass : #Object,
 	#category : #'AI-Lapack-Experiment'
 }
 
 { #category : #'memory space' }
-LapackGradientDescentExperiment class >> garbageCollect [
+PharoGradientDescentExperiment class >> garbageCollect [
 
 	^ 10 timesRepeat: [ SmalltalkImage current garbageCollect ]
 ]
 
 { #category : #utilities }
-LapackGradientDescentExperiment class >> loadData: fileName [
+PharoGradientDescentExperiment class >> loadData: fileName [
 
 	| directory file data withoutHeaders x y |
 	directory := './pharo-local/iceberg/jordanmontt/lapack-experiment/experiment-files'.
@@ -32,7 +32,7 @@ LapackGradientDescentExperiment class >> loadData: fileName [
 ]
 
 { #category : #api }
-LapackGradientDescentExperiment class >> runSmallDatasetExperiment [
+PharoGradientDescentExperiment class >> runSmallDatasetExperiment [
 
 	| data gradientDescentModel lapackTime x y |
 	data := self loadData: 'feynman_I_10_7.csv'.
