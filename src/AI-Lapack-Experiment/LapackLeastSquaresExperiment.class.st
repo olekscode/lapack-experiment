@@ -15,7 +15,7 @@ LapackLeastSquaresExperiment class >> loadData: fileName [
 
 	| directory file data withoutHeaders x y |
 	directory := './pharo-local/iceberg/jordanmontt/lapack-experiment/experiment-files'.
-	file := (directory , fileName) asFileReference.
+	file := (directory , '/' , fileName) asFileReference.
 
 	data := (NeoCSVReader on: file readStream) upToEnd.
 
