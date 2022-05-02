@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfLapackExperiment,
+	#name : #BaselineOfAILapackExperiment,
 	#superclass : #BaselineOf,
 	#category : #BaselineOfAILapackExperiment
 }
 
 { #category : #baselines }
-BaselineOfLapackExperiment >> baseline: spec [
+BaselineOfAILapackExperiment >> baseline: spec [
 
 	<baseline>
 	spec for: #common do: [
