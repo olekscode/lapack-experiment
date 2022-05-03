@@ -6,7 +6,7 @@ In order to install the experiment, perform the following code in a Playground:
 
 ```st
 Metacello new
-    repository: 'github://jordanmontt/lapack-experiment/src';
+    repository: 'github://jordanmontt/lapack-experiment';
     baseline: 'AILapackExperiment';
     load
 ```
