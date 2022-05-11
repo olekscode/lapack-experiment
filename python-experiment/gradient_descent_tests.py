@@ -63,6 +63,38 @@ class LinearRegressionTest(unittest.TestCase):
         self.model.fit(self.fixture.inputMatrix, self.fixture.outputVector)
         self.assertAlmostEqual(self.model.bias, self.fixture.bias)
 
+    def test_exactFitSingleVariable(self):
+        newInput = [ [4], [1], [7], [0] ]
+        expectedOutput = [ 11, 5, 17, 3 ]
+
+        self.model.learningRate = 0.01
+        self.model.maxIterations = 3000
+
+        self.model.fit(self.fixture.inputMatrix, self.fixture.outputVector)
+        actualOutput = self.model.predict(newInput)
+        print(actualOutput)
+
+        for i in range(len(actualOutput)):
+            self.assertAlmostEquals(actualOutput[i], expectedOutput[i])
+
+    def test_weightsAreAlmostEqual(self):
+        self.model.learningRate = 0.01
+        self.model.maxIterations = 3000
+
+        self.model.fit(self.fixture.inputMatrix, self.fixture.outputVector)
+
+        for i in len(self.fixture.weights):
+            self.assertAlmostEquals(self.model.weights[i], self.fixture.weights[i])
+
+    def test_divergingExecption(self):
+        input = [ [ 13421525235235235235 ], [ 3 ], [ 0.1 ], [ 0.000005 ], [ 241241241124124124 ], [ 6412412412414 ], [ 45345 ], [ 5 ], [ 53 ], [ 5 ], [ 3 ], [ 1 ], [ 2 ], [ 1 ], [ 0.09 ], [ 0.4 ], [ 0.0009 ], [ 5 ], [ 234242342423423 ], [ 0.9888 ], [ 0.0000009 ] ]
+        output = [ 4, 234, 523, 523, 5, 63456346346346, 636463, 63463, 0.253, 0.84234, 0.00042, 243, 4, 2, 2, 5, 2, 5235235, 0.0005, 3, 3 ]
+
+        self.model.learningRate = 100
+        self.model.maxIterations = 3000
+
+        with self.assertRaises(Exception):
+            self.model.fit(input, output)
 
 if __name__ == '__main__':
     unittest.main()
