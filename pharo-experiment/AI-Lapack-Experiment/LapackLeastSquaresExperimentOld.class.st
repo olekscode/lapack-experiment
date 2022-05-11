@@ -1,17 +1,17 @@
 Class {
-	#name : #LapackLeastSquaresExperiment,
+	#name : #LapackLeastSquaresExperimentOld,
 	#superclass : #Object,
 	#category : #'AI-Lapack-Experiment'
 }
 
 { #category : #utilities }
-LapackLeastSquaresExperiment class >> garbageCollect [
+LapackLeastSquaresExperimentOld class >> garbageCollect [
 
 	^ 10 timesRepeat: [ SmalltalkImage current garbageCollect ]
 ]
 
 { #category : #utilities }
-LapackLeastSquaresExperiment class >> loadData: fileName [
+LapackLeastSquaresExperimentOld class >> loadData: fileName [
 
 	| directory file data withoutHeaders x y |
 	directory := './pharo-local/iceberg/jordanmontt/lapack-experiment/experiment-files'.
@@ -32,7 +32,7 @@ LapackLeastSquaresExperiment class >> loadData: fileName [
 ]
 
 { #category : #api }
-LapackLeastSquaresExperiment class >> runMediumDatasetExperiment [
+LapackLeastSquaresExperimentOld class >> runMediumDatasetExperiment [
 
 	| data lapackModel lapackTime x y |
 	data := self loadData: '1191_BNG_pbc.csv'.
@@ -49,7 +49,7 @@ LapackLeastSquaresExperiment class >> runMediumDatasetExperiment [
 ]
 
 { #category : #api }
-LapackLeastSquaresExperiment class >> runSmallDatasetExperiment [
+LapackLeastSquaresExperimentOld class >> runSmallDatasetExperiment [
 
 	| data lapackModel lapackTime x y |
 	data := self loadData: 'feynman_I_10_7.csv'.
