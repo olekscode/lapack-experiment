@@ -1,12 +1,12 @@
 import unittest
-from gradient_descent import LinearRegressionGradientDescent
+from PurePythonLinearRegressionGradientDescent import PurePythonLinearRegressionGradientDescent
 from fixtures import LinearRegressionFixture
 
 
 class LinearRegressionTest(unittest.TestCase):
 
     def regression(self):
-        return LinearRegressionGradientDescent()
+        return PurePythonLinearRegressionGradientDescent()
 
     def setUp(self):
         super().setUp()

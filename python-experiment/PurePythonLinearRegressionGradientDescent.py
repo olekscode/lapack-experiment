@@ -1,4 +1,4 @@
-class LinearRegressionGradientDescent:
+class PurePythonLinearRegressionGradientDescent:
     def __init__(self):
         self.learningRate = 0.01
         self.maxIterations = 5000

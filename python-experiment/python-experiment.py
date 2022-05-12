@@ -1,0 +1,19 @@
+import ScikitLearnGradientDescent
+import ScipyLeastSquares
+
+scipyLeastSquaresSolver = ScipyLeastSquares.ScipyLeastSquares()
+scipyLeastSquaresSmallTime = scipyLeastSquaresSolver.runSmallExperiment()
+scipyLeastSquaresMediumTime = scipyLeastSquaresSolver.runMediumExperiment()
+
+scikitLearnGradientDescentSolver = ScikitLearnGradientDescent.ScikitLearnGradientDescent()
+scikitLearnGradientDescentSmallTime = scikitLearnGradientDescentSolver.runSmallExperiment()
+scikitLearnGradientDescentMediumTime = scikitLearnGradientDescentSolver.runMediumExperiment()
+
+print(scipyLeastSquaresSmallTime)
+print(scipyLeastSquaresMediumTime)
+
+print(scikitLearnGradientDescentSmallTime)
+print(scikitLearnGradientDescentMediumTime)
+
+# purePythonGradientDescentSmallTime = 0
+# purePythonGradientDescentMediumTime = 0
