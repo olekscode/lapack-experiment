@@ -1,23 +1,23 @@
 Class {
-	#name : #AbstractExperiment,
+	#name : #AbstractLinearRegressionSolver,
 	#superclass : #Object,
 	#category : #'AI-Lapack-Experiment'
 }
 
 { #category : #utilities }
-AbstractExperiment class >> garbageCollect [
+AbstractLinearRegressionSolver class >> garbageCollect [
 
 	^ 10 timesRepeat: [ SmalltalkImage current garbageCollect ]
 ]
 
 { #category : #'experiment definition' }
-AbstractExperiment class >> linearRegressionSolvingAlgorithmClass [
+AbstractLinearRegressionSolver class >> linearRegressionSolvingAlgorithmClass [
 
 	^ self subclassResponsibility
 ]
 
 { #category : #utilities }
-AbstractExperiment class >> loadData: fileName [
+AbstractLinearRegressionSolver class >> loadData: fileName [
 
 	| directory file data withoutHeaders x y |
 	directory := './pharo-local/iceberg/jordanmontt/lapack-experiment/experiment-files'.
@@ -38,13 +38,13 @@ AbstractExperiment class >> loadData: fileName [
 ]
 
 { #category : #'experiment definition' }
-AbstractExperiment class >> mediumDatasetFileName [
+AbstractLinearRegressionSolver class >> mediumDatasetFileName [
 
 	^ '1191_BNG_pbc.csv'
 ]
 
 { #category : #private }
-AbstractExperiment class >> runExperiment: datasetFileName [
+AbstractLinearRegressionSolver class >> runExperiment: datasetFileName [
 
 	| data model lapackTime x y |
 	data := self loadData: datasetFileName.
@@ -61,19 +61,21 @@ AbstractExperiment class >> runExperiment: datasetFileName [
 ]
 
 { #category : #api }
-AbstractExperiment class >> runMediumDatasetExperiment [
+AbstractLinearRegressionSolver class >> runMediumDatasetExperiment [
 
-	^ self runExperiment: self mediumDatasetFileName
+	"^ self runExperiment: self mediumDatasetFileName"
+	^ 5
 ]
 
 { #category : #api }
-AbstractExperiment class >> runSmallDatasetExperiment [
+AbstractLinearRegressionSolver class >> runSmallDatasetExperiment [
 
-	^ self runExperiment: self smallDatasetFileName
+	"^ self runExperiment: self smallDatasetFileName"
+	^ 7
 ]
 
 { #category : #'experiment definition' }
-AbstractExperiment class >> smallDatasetFileName [
+AbstractLinearRegressionSolver class >> smallDatasetFileName [
 
 	^ 'feynman_I_10_7.csv'
 ]
