@@ -50,7 +50,7 @@ PharoExperiment class >> writeCsvFileToDiskSmall: resultsOfSmallDataset medium: 
 	file := self csvFile.
 	file writeStreamDo: [ :stream | 
 		stream
-			<< 'Pharo + LAPACK Least Squares, ' << 'Pure Pharo Least Squares, ' << 'Pure Pharo Gradient Descent, '
+			<< 'Pharo + LAPACK Least Squares, ' << 'Pure Pharo Least Squares, ' << 'Pure Pharo Gradient Descent'
 			<< String cr.
 		resultsOfSmallDataset printOn: stream.
 		stream << String cr.
