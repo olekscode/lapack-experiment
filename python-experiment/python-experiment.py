@@ -1,11 +1,11 @@
-import ScikitLearnGradientDescent
-import ScipyLeastSquares
+from ScikitLearnGradientDescentSolver import ScikitLearnGradientDescentSolver
+from ScipyLeastSquaresSolver import ScipyLeastSquaresSolver
 
-scipyLeastSquaresSolver = ScipyLeastSquares.ScipyLeastSquares()
+scipyLeastSquaresSolver = ScipyLeastSquaresSolver()
 scipyLeastSquaresSmallTime = scipyLeastSquaresSolver.runSmallExperiment()
 scipyLeastSquaresMediumTime = scipyLeastSquaresSolver.runMediumExperiment()
 
-scikitLearnGradientDescentSolver = ScikitLearnGradientDescent.ScikitLearnGradientDescent()
+scikitLearnGradientDescentSolver = ScikitLearnGradientDescentSolver()
 scikitLearnGradientDescentSmallTime = scikitLearnGradientDescentSolver.runSmallExperiment()
 scikitLearnGradientDescentMediumTime = scikitLearnGradientDescentSolver.runMediumExperiment()
 
