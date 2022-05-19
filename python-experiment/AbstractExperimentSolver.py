@@ -7,7 +7,7 @@ class AbstractExperimentSolver:
 		self.numberOfTimesToRun = 5
 	
 	def getInputMatrixAndOutputVector(self, fileName, separator=','):
-		directory = '../data/' + fileName
+		directory = './data/' + fileName
 		df = pd.read_csv(filepath_or_buffer=directory, sep=separator)
 		x = df.iloc[:,0:df.shape[1] - 1]
 		y = df.iloc[:,df.shape[1] - 1]
