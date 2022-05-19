@@ -27,23 +27,9 @@ class LinearRegressionTest(unittest.TestCase):
         with self.assertRaises(Exception):
             self.model.fit(input, output)
 
-    def test_fitInputWithInconsistentTypes(self):
-        input = [['number'], [3], [1]]
-        output = [1, 3, 1]
-
-        with self.assertRaises(Exception):
-            self.model.fit(input, output)
-
     def test_fitSizeMismatch(self):
         input = [[2], [3]]
         output = [1]
-
-        with self.assertRaises(Exception):
-            self.model.fit(input, output)
-
-    def test_fitOutputWithInconsistentTypes(self):
-        input = [[1], [3], [1]]
-        output = ['number', 3, 1]
 
         with self.assertRaises(Exception):
             self.model.fit(input, output)
@@ -99,6 +85,27 @@ class LinearRegressionTest(unittest.TestCase):
 
         with self.assertRaises(Exception):
             self.model.fit(input, output)
+
+    def test_weightDerivative(self):
+        result = self.model.weightDerivative([ [1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12] ], [9, 8, 7, 6])
+        self.assertEqual(result, [37.5, 45, 52.5])
+
+    def test_costDerivative(self):
+        result = self.model.costDerivative([10, 20, 30], [11, 22, 33])
+        self.assertEqual(result, [-2, -4, -6])
+
+        result = self.model.costDerivative([11, 22, 33] , [10, 20, 30])
+        self.assertEqual(result, [2, 4, 6])
+
+    def test_biasDerivative(self):
+        result = self.model.biasDerivative([3, 4, 5, 6])
+        self.assertEqual(result, 4.5)
+
+    def test_weightedSum(self):
+        self.model.bias = 2
+        self.model.weights = [4, 5, 6]
+        result = self.model.weightedSum([ [1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        self.assertEqual(result, [34, 79, 124])
 
 if __name__ == '__main__':
     unittest.main()

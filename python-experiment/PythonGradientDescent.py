@@ -7,7 +7,7 @@ class PythonGradientDescent:
         self.weights = []
         self.bias = 0
 
-    def isNaN(num):
+    def isNaN(self, num):
         return num!= num
 
     def initializeWeightsWithZeros(self, size):
@@ -16,20 +16,19 @@ class PythonGradientDescent:
     def fit(self, inputMatrix, actualValues):
         self.initializeWeightsWithZeros(len(inputMatrix[0]))
 
-        cost = self.costFunction(inputMatrix, actualValues)
-        self.costHistory.append(cost)
+        self.costHistory = []
+        self.costHistory.append(self.costFunction(inputMatrix, actualValues))
 
         self.performedIterations = 0
 
-        while(self.hasConverged() or self.performedIterations >= self.maxIterations):
+        while(not self.hasConverged() and self.performedIterations <= self.maxIterations):
             self.updateWeights(inputMatrix, actualValues)
-            cost = self.costFunction(inputMatrix, actualValues)
-            self.costHistory.add(cost)
+            self.costHistory.append(self.costFunction(inputMatrix, actualValues))
             self.performedIterations += 1
 
     def costFunction(self, inputMatrix, actualValues):
-        predictedValues = self.predict(inputMatrix)
-        squaredErrors = [(actualValues[i] - predictedValues[i])**2 for i in range(len(actualValues))]
+        predictedValues = self.hypothesisFunction(inputMatrix)
+        squaredErrors = [ (actualValues[i] - predictedValues[i])**2 for i in range(len(actualValues)) ]
         return sum(squaredErrors) / len(squaredErrors)
 
     def hasConverged(self):
@@ -38,12 +37,12 @@ class PythonGradientDescent:
         if len(self.costHistory) < 2:
             return False
         precision = 1e-10
-        difference = self.costHistory[len(self.costHistory) - 1] - self.costHistory[len(self.costHistory) - 2]
+        difference = self.costHistory[len(self.costHistory) - 1 ] - self.costHistory[len(self.costHistory) - 2]
 
         if difference > 0 or self.isNan(difference):
             raise Exception("Model is starting to diverge")
 
-        return (abs(self.costHistory[len(self.costHistory) - 1] - self.costHistory[len(self.costHistory) - 2]) < precision) or (difference < precision)
+        return (abs(self.costHistory[len(self.costHistory) - 1]) < precision) or (difference < precision)
 
     def updateWeights(self, inputMatrix, actualValues):
         predictedOutputVector = self.hypothesisFunction(inputMatrix)
@@ -53,20 +52,33 @@ class PythonGradientDescent:
 
         biasDerivative = self.biasDerivative(costDerivative)
 
-        self.weights = self.weights - (self.learningRate * weightDerivative)
+        learningRateTimesWeightDerivative = [ x * self.learningRate for x in weightDerivative ]
+        self.weights = [ (self.weights[i] - learningRateTimesWeightDerivative[i]) for i in range(len(self.weights)) ]
         self.bias = self.bias - (self.learningRate * biasDerivative)
 
     def costDerivative(self, predictedOutputVector, targetOutputVector):
-        return 2 * (predictedOutputVector - targetOutputVector)
+        subtracted = list()
+        for i in range(len(predictedOutputVector)):
+            item = 2 * (predictedOutputVector[i] - targetOutputVector[i])
+            subtracted.append(item)
+        return subtracted
 
     def biasDerivative(self, costDerivative):
         return sum(costDerivative) / len(costDerivative)
 
     def weightDerivative(self, inputMatrix, costDerivativeVector):
         weightDerivative = []
-        for i in range(inputMatrix):
-            weightDerivative.append(inputMatrix[i] * costDerivativeVector[i])
-        return sum(weightDerivative) / len(weightDerivative)
+        for i in range(len(inputMatrix)):
+            rowTimesVector = [ inputMatrix[i][j] * costDerivativeVector[i] for j in range(len(inputMatrix[i])) ]
+            weightDerivative.append(rowTimesVector)
+
+        answer = []
+        for column in range(len(weightDerivative[0])):
+            sum = 0
+            for row in weightDerivative:
+                sum += row[column]
+            answer.append(sum)
+        return [ (element / len(costDerivativeVector)) for element in answer ]
 
     def predict(self, inputMatrix):
         return self.hypothesisFunction(inputMatrix)
@@ -77,7 +89,6 @@ class PythonGradientDescent:
     def weightedSum(self, inputMatrix):
         weightedSum = []
         for i in range(len(inputMatrix)):
-            listsMultiplication = [inputMatrix[i][j] * self.weights[j] for j in range(len(self.weights))]
+            listsMultiplication = [ inputMatrix[i][j] * self.weights[j] for j in range(len(self.weights)) ]
             weightedSum.append(sum(listsMultiplication) + self.bias)
         return weightedSum
-    

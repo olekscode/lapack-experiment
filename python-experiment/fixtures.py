@@ -1,6 +1,6 @@
 class LinearRegressionFixture:
     def __init__(self):
-        self.bias = 3
+        self.bias = 5
         self.weights = [2]
 
         function = lambda x: self.weights[0] * x + self.bias
