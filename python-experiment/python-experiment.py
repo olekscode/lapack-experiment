@@ -14,7 +14,7 @@ scikitLearnGradientDescentMediumTime = scikitLearnGradientDescentSolver.runMediu
 # purePythonGradientDescentMediumTime = 0
 
 fields = ['SciPy LeastSquares', 'ScikitLearn Gradient Descent', 'Pure Python Gradient Descent'] 
-    
+
 # data rows of csv file 
 rows = [ [scipyLeastSquaresSmallTime, scikitLearnGradientDescentSmallTime, '-'],
          [scipyLeastSquaresMediumTime, scikitLearnGradientDescentMediumTime, '-'] ] 
