@@ -10,26 +10,26 @@ class PythonGradientDescent:
     def is_nan(self, num):
         return num != num
 
-    def initializeWeightsWithZeros(self, size):
+    def initialize_weights_with_zeros(self, size):
         self.weights = [0] * size
 
-    def fit(self, inputMatrix, actualValues):
-        self.initializeWeightsWithZeros(len(inputMatrix[0]))
+    def fit(self, input_matrix, actual_values):
+        self.initialize_weights_with_zeros(len(input_matrix[0]))
 
         self.costHistory = []
-        self.costHistory.append(self.cost_function(inputMatrix, actualValues))
+        self.costHistory.append(self.cost_function(input_matrix, actual_values))
 
         self.performedIterations = 0
 
         while not self.has_converged() and self.performedIterations <= self.maxIterations:
-            self.update_weights(inputMatrix, actualValues)
-            self.costHistory.append(self.cost_function(inputMatrix, actualValues))
+            self.update_weights(input_matrix, actual_values)
+            self.costHistory.append(self.cost_function(input_matrix, actual_values))
             self.performedIterations += 1
 
-    def cost_function(self, inputMatrix, actualValues):
-        predictedValues = self.hypothesis_function(inputMatrix)
-        squaredErrors = [(actualValues[i] - predictedValues[i]) ** 2 for i in range(len(actualValues))]
-        return sum(squaredErrors) / len(squaredErrors)
+    def cost_function(self, input_matrix, actual_values):
+        predicted_values = self.hypothesis_function(input_matrix)
+        squared_errors = [(actual_values[i] - predicted_values[i]) ** 2 for i in range(len(actual_values))]
+        return sum(squared_errors) / len(squared_errors) / 2
 
     def has_converged(self):
         if len(self.costHistory) == 0:
@@ -37,34 +37,39 @@ class PythonGradientDescent:
         if len(self.costHistory) < 2:
             return False
         precision = 1e-10
-        difference = self.costHistory[len(self.costHistory) - 1] - self.costHistory[len(self.costHistory) - 2]
 
-        if difference > 0 or self.isNan(difference):
+        current_cost = self.costHistory[len(self.costHistory) - 1]
+        previous_cost = self.costHistory[len(self.costHistory) - 2]
+
+        difference = current_cost - previous_cost
+
+        if difference > 0 or self.is_nan(difference):
             raise Exception("Model is starting to diverge")
 
-        return (abs(self.costHistory[len(self.costHistory) - 1]) < precision) or (difference < precision)
+        return (abs(current_cost) < precision) or (abs(difference) < precision)
 
-    def update_weights(self, inputMatrix, actualValues):
-        predictedOutputVector = self.hypothesis_function(inputMatrix)
+    def update_weights(self, input_matrix, actual_values):
+        predicted_output_vector = self.hypothesis_function(input_matrix)
 
-        costDerivative = self.cost_derivative(predictedOutputVector, actualValues)
-        weightDerivative = self.weight_derivative(inputMatrix, actualValues)
+        cost_derivative = self.cost_derivative(predicted_output_vector, actual_values)
+        weight_derivative = self.weight_derivative(input_matrix, cost_derivative)
 
-        biasDerivative = self.bias_derivative(costDerivative)
+        bias_derivative = self.bias_derivative(cost_derivative)
 
-        learningRateTimesWeightDerivative = [x * self.learningRate for x in weightDerivative]
-        self.weights = [(self.weights[i] - learningRateTimesWeightDerivative[i]) for i in range(len(self.weights))]
-        self.bias = self.bias - (self.learningRate * biasDerivative)
+        learning_rate_times_weight_derivative = [x * self.learningRate for x in weight_derivative]
 
-    def cost_derivative(self, predictedOutputVector, targetOutputVector):
-        subtracted = list()
-        for i in range(len(predictedOutputVector)):
-            item = 2 * (predictedOutputVector[i] - targetOutputVector[i])
-            subtracted.append(item)
-        return subtracted
+        self.weights = [(self.weights[i] - learning_rate_times_weight_derivative[i]) for i in range(len(self.weights))]
+        self.bias = self.bias - (self.learningRate * bias_derivative)
 
-    def bias_derivative(self, costDerivative):
-        return sum(costDerivative) / len(costDerivative)
+    def cost_derivative(self, predicted_output_vector, target_output_vector):
+        derivatives = []
+        for i in range(len(predicted_output_vector)):
+            derivative = predicted_output_vector[i] - target_output_vector[i]
+            derivatives.append(derivative)
+        return derivatives
+
+    def bias_derivative(self, cost_derivative):
+        return sum(cost_derivative) / len(cost_derivative)
 
     def weight_derivative(self, inputMatrix, costDerivativeVector):
         weightDerivative = []

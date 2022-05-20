@@ -10,22 +10,10 @@ class LinearRegressionTest(unittest.TestCase):
 
     def setUp(self):
         super().setUp()
-        self.model = self.regression()
         self.fixture = LinearRegressionFixture()
-
-    def test_emptyInputMatrix(self):
-        input_matrix = [[]]
-        output = [1]
-
-        with self.assertRaises(Exception):
-            self.model.fit(input_matrix, output)
-
-    def test_emptyOutputVector(self):
-        input_matrix = [[5], [3]]
-        output = []
-
-        with self.assertRaises(Exception):
-            self.model.fit(input_matrix, output)
+        self.model = self.regression()
+        self.model.learningRate = 0.1
+        self.model.maxIterations = 3000
 
     def test_fitSizeMismatch(self):
         input_matrix = [[2], [3]]
@@ -36,7 +24,7 @@ class LinearRegressionTest(unittest.TestCase):
 
     def test_initializeWeightsWithZeros(self):
         expected_weights = [0, 0, 0]
-        self.model.initializeWeightsWithZeros(3)
+        self.model.initialize_weights_with_zeros(3)
         self.assertEqual(self.model.weights, expected_weights)
 
     def test_learningRateIsInitialized(self):
@@ -47,29 +35,23 @@ class LinearRegressionTest(unittest.TestCase):
 
     def test_biasAlmostEqual(self):
         self.model.fit(self.fixture.inputMatrix, self.fixture.outputVector)
-        self.assertAlmostEqual(self.model.bias, self.fixture.bias)
+        self.assertAlmostEqual(self.model.bias, self.fixture.bias, places=3)
 
     def test_exactFitSingleVariable(self):
         new_input = [[4], [1], [7], [0]]
         expected_output = [11, 5, 17, 3]
 
-        self.model.learningRate = 0.01
-        self.model.maxIterations = 3000
-
         self.model.fit(self.fixture.inputMatrix, self.fixture.outputVector)
         actual_output = self.model.predict(new_input)
 
         for i in range(len(actual_output)):
-            self.assertAlmostEquals(actual_output[i], expected_output[i])
+            self.assertAlmostEquals(actual_output[i], expected_output[i], places=3)
 
     def test_weightsAreAlmostEqual(self):
-        self.model.learningRate = 0.01
-        self.model.maxIterations = 3000
-
         self.model.fit(self.fixture.inputMatrix, self.fixture.outputVector)
 
         for i in range(len(self.fixture.weights)):
-            self.assertAlmostEquals(self.model.weights[i], self.fixture.weights[i])
+            self.assertAlmostEquals(self.model.weights[i], self.fixture.weights[i], places=3)
 
     def test_divergingException(self):
         input_matrix = [[13421525235235235235], [3], [0.1], [0.000005],
@@ -80,7 +62,6 @@ class LinearRegressionTest(unittest.TestCase):
                   0.84234, 0.00042, 243, 4, 2, 2, 5, 2, 5235235, 0.0005, 3, 3]
 
         self.model.learningRate = 100
-        self.model.maxIterations = 3000
 
         with self.assertRaises(Exception):
             self.model.fit(input_matrix, output)
@@ -91,10 +72,10 @@ class LinearRegressionTest(unittest.TestCase):
 
     def test_costDerivative(self):
         result = self.model.cost_derivative([10, 20, 30], [11, 22, 33])
-        self.assertEqual(result, [-2, -4, -6])
+        self.assertEqual(result, [-1, -2, -3])
 
         result = self.model.cost_derivative([11, 22, 33], [10, 20, 30])
-        self.assertEqual(result, [2, 4, 6])
+        self.assertEqual(result, [1, 2, 3])
 
     def test_biasDerivative(self):
         result = self.model.bias_derivative([3, 4, 5, 6])
