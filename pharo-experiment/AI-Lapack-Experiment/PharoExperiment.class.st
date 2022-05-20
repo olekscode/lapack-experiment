@@ -22,7 +22,7 @@ PharoExperiment class >> fileName [
 { #category : #api }
 PharoExperiment class >> runExperiment [
 
-	self runExperimentForAllSolvers
+	^ self runExperimentForAllSolvers
 ]
 
 { #category : #actions }
@@ -33,14 +33,14 @@ PharoExperiment class >> runExperimentForAllSolvers [
 	resultsOfSmallDataset := ExperimentResult new
 		lapackLeastSquaresTime: LapackLeastSquaresLinearRegressionSolver runSmallDatasetExperiment;
 		pharoGradientDescentTime: PharoGradientDescentLinearRegressionSolver runSmallDatasetExperiment;
-		pharoLeastSquaresTime: PharoLeastSquaresLinearRegressionSolver runSmallDatasetExperiment.
+		pharoLeastSquaresTime: "PharoLeastSquaresLinearRegressionSolver runSmallDatasetExperiment"'-'.
 		
 	resultsOfMediumDataset := ExperimentResult new
 		lapackLeastSquaresTime: LapackLeastSquaresLinearRegressionSolver runMediumDatasetExperiment;
 		pharoGradientDescentTime: PharoGradientDescentLinearRegressionSolver runMediumDatasetExperiment;
 		pharoLeastSquaresTime: PharoLeastSquaresLinearRegressionSolver runMediumDatasetExperiment.
 		
-	self writeCsvFileToDiskSmall: resultsOfSmallDataset medium: resultsOfMediumDataset
+	^ self writeCsvFileToDiskSmall: resultsOfSmallDataset medium: resultsOfMediumDataset
 ]
 
 { #category : #actions }
@@ -48,7 +48,7 @@ PharoExperiment class >> writeCsvFileToDiskSmall: resultsOfSmallDataset medium: 
 
 	| file |
 	file := self csvFile.
-	file writeStreamDo: [ :stream | 
+	^ file writeStreamDo: [ :stream | 
 		stream
 			<< 'Pharo + LAPACK Least Squares, ' << 'Pure Pharo Least Squares, ' << 'Pure Pharo Gradient Descent'
 			<< String cr.
