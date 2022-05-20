@@ -20,7 +20,7 @@ rows = [ [scipyLeastSquaresSmallTime, scikitLearnGradientDescentSmallTime, '-'],
          [scipyLeastSquaresMediumTime, scikitLearnGradientDescentMediumTime, '-'] ] 
 
 # name of csv file 
-filename = "python-results.csv"
+filename = "./experiment-results/python-results.csv"
 
 # writing to csv file 
 with open(filename, 'w') as csvfile: 
