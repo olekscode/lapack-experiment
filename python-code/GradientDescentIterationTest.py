@@ -1,9 +1,10 @@
 import unittest
 from PythonGradientDescent import PythonGradientDescent
-from fixtures import LinearRegressionTrivialFixture
+from Fixtures import LinearRegressionTrivialFixture
 
 
 class LinearRegressionTest(unittest.TestCase):
+
     def regression(self):
         return PythonGradientDescent()
 

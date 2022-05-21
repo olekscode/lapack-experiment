@@ -1,6 +1,6 @@
 import unittest
 from PythonGradientDescent import PythonGradientDescent
-from fixtures import LinearRegressionFixture
+from Fixtures import LinearRegressionFixture
 
 
 class LinearRegressionTest(unittest.TestCase):

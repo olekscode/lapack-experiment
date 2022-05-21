@@ -71,29 +71,29 @@ class PythonGradientDescent:
     def bias_derivative(self, cost_derivative):
         return sum(cost_derivative) / len(cost_derivative)
 
-    def weight_derivative(self, inputMatrix, costDerivativeVector):
-        weightDerivative = []
-        for i in range(len(inputMatrix)):
-            rowTimesVector = [inputMatrix[i][j] * costDerivativeVector[i] for j in range(len(inputMatrix[i]))]
-            weightDerivative.append(rowTimesVector)
+    def weight_derivative(self, input_matrix, cost_derivative_vector):
+        weight_derivative = []
+        for i in range(len(input_matrix)):
+            row_times_vector = [input_matrix[i][j] * cost_derivative_vector[i] for j in range(len(input_matrix[i]))]
+            weight_derivative.append(row_times_vector)
 
         answer = []
-        for column in range(len(weightDerivative[0])):
-            sum = 0
-            for row in weightDerivative:
-                sum += row[column]
-            answer.append(sum)
-        return [(element / len(costDerivativeVector)) for element in answer]
+        for column in range(len(weight_derivative[0])):
+            derivative = 0
+            for row in weight_derivative:
+                derivative += row[column]
+            answer.append(derivative)
+        return [(element / len(cost_derivative_vector)) for element in answer]
 
-    def predict(self, inputMatrix):
-        return self.hypothesis_function(inputMatrix)
+    def predict(self, input_matrix):
+        return self.hypothesis_function(input_matrix)
 
-    def hypothesis_function(self, inputMatrix):
-        return self.weighted_sum(inputMatrix)
+    def hypothesis_function(self, input_matrix):
+        return self.weighted_sum(input_matrix)
 
-    def weighted_sum(self, inputMatrix):
-        weightedSum = []
-        for i in range(len(inputMatrix)):
-            listsMultiplication = [inputMatrix[i][j] * self.weights[j] for j in range(len(self.weights))]
-            weightedSum.append(sum(listsMultiplication) + self.bias)
-        return weightedSum
+    def weighted_sum(self, input_matrix):
+        weighted_sum = []
+        for i in range(len(input_matrix)):
+            lists_multiplication = [input_matrix[i][j] * self.weights[j] for j in range(len(self.weights))]
+            weighted_sum.append(sum(lists_multiplication) + self.bias)
+        return weighted_sum
