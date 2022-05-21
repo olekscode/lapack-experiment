@@ -20,13 +20,18 @@ class AbstractExperimentSolver:
 	def get_big_experiment_data(self):
 		return self.get_input_matrix_and_output_vector('huge_dataset.csv')
 
-	def run_experiment_n_times(self, x, y, n=5):
-		# Measuring time
+	def experiment(self, x, y, n=5):
 		start_time = time.time()
 		for i in range(n):
 			reg = self.run_regression_solver(x, y)
 
 		return (time.time() - start_time) / n
+
+	def run_experiment_n_times(self, x, y, n=5):
+		try:
+			return self.experiment(x, y, n)
+		except BaseException as e:
+			return 'error'
 
 	def run_small_experiment(self):
 		x, y = self.get_small_experiment_data()
