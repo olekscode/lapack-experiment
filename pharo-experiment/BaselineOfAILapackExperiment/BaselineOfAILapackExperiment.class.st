@@ -1,3 +1,6 @@
+"
+I am a beseline
+"
 Class {
 	#name : #BaselineOfAILapackExperiment,
 	#superclass : #BaselineOf,

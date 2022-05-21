@@ -1,3 +1,6 @@
+"
+I am the class that runs the experiment for all the linear regression solvers and store the benchmarkings into a csv file.
+"
 Class {
 	#name : #PharoExperiment,
 	#superclass : #Object,
@@ -30,15 +33,15 @@ PharoExperiment class >> runExperimentForAllSolvers [
 
 	| resultsOfSmallDataset resultsOfMediumDataset |
 	
-	resultsOfSmallDataset := ExperimentResult new
-		lapackLeastSquaresTime: LapackLeastSquaresLinearRegressionSolver runSmallDatasetExperiment;
-		pharoGradientDescentTime: PharoGradientDescentLinearRegressionSolver runSmallDatasetExperiment;
+	resultsOfSmallDataset := ExperimentResultDataHolder new
+		lapackLeastSquaresTime: LapackLeastSquaresSolver runSmallDatasetExperiment;
+		pharoGradientDescentTime: PharoGradientDescentSolver runSmallDatasetExperiment;
 		pharoLeastSquaresTime: "PharoLeastSquaresLinearRegressionSolver runSmallDatasetExperiment"'-'.
-		
-	resultsOfMediumDataset := ExperimentResult new
-		lapackLeastSquaresTime: LapackLeastSquaresLinearRegressionSolver runMediumDatasetExperiment;
-		pharoGradientDescentTime: PharoGradientDescentLinearRegressionSolver runMediumDatasetExperiment;
-		pharoLeastSquaresTime: PharoLeastSquaresLinearRegressionSolver runMediumDatasetExperiment.
+	
+	resultsOfMediumDataset := ExperimentResultDataHolder new
+		lapackLeastSquaresTime: LapackLeastSquaresSolver runMediumDatasetExperiment;
+		pharoGradientDescentTime: PharoGradientDescentSolver runMediumDatasetExperiment;
+		pharoLeastSquaresTime: "PharoLeastSquaresLinearRegressionSolver runMediumDatasetExperiment"'-'.
 		
 	^ self writeCsvFileToDiskSmall: resultsOfSmallDataset medium: resultsOfMediumDataset
 ]

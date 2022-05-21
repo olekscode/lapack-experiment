@@ -1,3 +1,6 @@
+"
+I am an abstract class for solving the linear regression using different algorithms
+"
 Class {
 	#name : #AbstractLinearRegressionSolver,
 	#superclass : #Object,
