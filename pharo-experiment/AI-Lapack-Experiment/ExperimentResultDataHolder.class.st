@@ -1,5 +1,8 @@
+"
+I am a class that only store data to be transmitted
+"
 Class {
-	#name : #ExperimentResult,
+	#name : #ExperimentResultDataHolder,
 	#superclass : #Object,
 	#instVars : [
 		'lapackLeastSquaresTime',
@@ -10,43 +13,43 @@ Class {
 }
 
 { #category : #accessing }
-ExperimentResult >> lapackLeastSquaresTime [
+ExperimentResultDataHolder >> lapackLeastSquaresTime [
 
 	^ lapackLeastSquaresTime
 ]
 
 { #category : #accessing }
-ExperimentResult >> lapackLeastSquaresTime: anObject [
+ExperimentResultDataHolder >> lapackLeastSquaresTime: anObject [
 
 	lapackLeastSquaresTime := anObject
 ]
 
 { #category : #accessing }
-ExperimentResult >> pharoGradientDescentTime [
+ExperimentResultDataHolder >> pharoGradientDescentTime [
 
 	^ pharoGradientDescentTime
 ]
 
 { #category : #accessing }
-ExperimentResult >> pharoGradientDescentTime: anObject [
+ExperimentResultDataHolder >> pharoGradientDescentTime: anObject [
 
 	pharoGradientDescentTime := anObject
 ]
 
 { #category : #accessing }
-ExperimentResult >> pharoLeastSquaresTime [
+ExperimentResultDataHolder >> pharoLeastSquaresTime [
 
 	^ pharoLeastSquaresTime
 ]
 
 { #category : #accessing }
-ExperimentResult >> pharoLeastSquaresTime: anObject [
+ExperimentResultDataHolder >> pharoLeastSquaresTime: anObject [
 
 	pharoLeastSquaresTime := anObject
 ]
 
 { #category : #printing }
-ExperimentResult >> printOn: aStream [
+ExperimentResultDataHolder >> printOn: aStream [
 
 	aStream << lapackLeastSquaresTime asString << ','
 	<< pharoLeastSquaresTime asString << ','
