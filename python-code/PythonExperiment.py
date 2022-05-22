@@ -2,6 +2,8 @@ from ScikitLearnGradientDescentSolver import ScikitLearnGradientDescentSolver
 from PythonGradientDescentSolver import PythonGradientDescentSolver
 import csv
 
+print('Starting experiment')
+
 scikit_learn_gradient_descent_solver = ScikitLearnGradientDescentSolver()
 scikit_learn_gradient_descent_small_time = scikit_learn_gradient_descent_solver.run_small_experiment()
 print('Finished ScikitLearn with small dataset')
