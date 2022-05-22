@@ -4,31 +4,30 @@ import csv
 
 scikit_learn_gradient_descent_solver = ScikitLearnGradientDescentSolver()
 scikit_learn_gradient_descent_small_time = scikit_learn_gradient_descent_solver.run_small_experiment()
+print('Finished ScikitLearn with small dataset')
 scikit_learn_gradient_descent_medium_time = scikit_learn_gradient_descent_solver.run_medium_experiment()
+print('Finished ScikitLearn with medium dataset')
 scikit_learn_gradient_descent_big_time = scikit_learn_gradient_descent_solver.run_big_experiment()
+print('Finished ScikitLearn with big dataset')
 
 python_gradient_descent_solver = PythonGradientDescentSolver()
 python_gradient_descent_small_time = python_gradient_descent_solver.run_small_experiment()
+print('Finished Python Gradient Descent with small dataset')
 python_gradient_descent_medium_time = python_gradient_descent_solver.run_medium_experiment()
-python_gradient_descent_big_time = python_gradient_descent_solver.run_big_experiment()
+print('Finished Python Gradient Descent with medium dataset')
+# python_gradient_descent_big_time = python_gradient_descent_solver.run_big_experiment()
+# print('Finished Python Gradient Descent with big dataset')
 
 fields = ['ScikitLearn Gradient Descent', 'Pure Python Gradient Descent']
 
-# data rows of csv file 
 rows = [[scikit_learn_gradient_descent_small_time, python_gradient_descent_small_time],
         [scikit_learn_gradient_descent_medium_time, python_gradient_descent_medium_time],
-        [scikit_learn_gradient_descent_big_time, python_gradient_descent_big_time]]
+        [scikit_learn_gradient_descent_big_time, '-']]
 
-# name of csv file 
-filename = "./experiment-results/python-results.csv"
+filename = "../experiment-results/python-results.csv"
 
-# writing to csv file 
-with open(filename, 'w') as csvfile: 
-    # creating a csv writer object 
+with open(filename, 'w') as csvfile:
     csv_writer = csv.writer(csvfile)
-    
-    # writing the fields 
+
     csv_writer.writerow(fields)
-    
-    # writing the data rows 
     csv_writer.writerows(rows)

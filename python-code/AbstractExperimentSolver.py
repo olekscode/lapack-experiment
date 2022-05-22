@@ -3,7 +3,10 @@ import time as time
 
 
 class AbstractExperimentSolver:
-	
+
+	def __init__(self):
+		self.n = 5
+
 	def get_input_matrix_and_output_vector(self, file_name, separator=','):
 		directory = '../data/' + file_name
 		df = pd.read_csv(filepath_or_buffer=directory, sep=separator)
@@ -20,16 +23,16 @@ class AbstractExperimentSolver:
 	def get_big_experiment_data(self):
 		return self.get_input_matrix_and_output_vector('huge_dataset.csv')
 
-	def experiment(self, x, y, n=5):
+	def experiment(self, x, y):
 		start_time = time.time()
-		for i in range(n):
+		for i in range(self.n):
 			reg = self.run_regression_solver(x, y)
 
-		return (time.time() - start_time) / n
+		return (time.time() - start_time) / self.n
 
-	def run_experiment_n_times(self, x, y, n=5):
+	def run_experiment_n_times(self, x, y):
 		try:
-			return self.experiment(x, y, n)
+			return self.experiment(x, y)
 		except BaseException as e:
 			return 'error'
 
@@ -43,7 +46,7 @@ class AbstractExperimentSolver:
 
 	def run_big_experiment(self):
 		x, y = self.get_big_experiment_data()
-		return self.run_experiment_n_times(x, y, 1)
+		return self.run_experiment_n_times(x, y)
 	
 	def run_regression_solver(self, x, y):
 		pass
