@@ -7,8 +7,15 @@ Class {
 	#category : #'AI-Lapack-Experiment'
 }
 
-{ #category : #'experiment definition' }
-PharoGradientDescentSolver class >> linearRegressionSolvingAlgorithmClass [
+{ #category : #initialization }
+PharoGradientDescentSolver >> initialize [
 
-	^ AILinearRegression
+	super initialize.
+	n := 1
+]
+
+{ #category : #private }
+PharoGradientDescentSolver >> runRegressionSolverX: x y: y [
+
+	^ AILinearRegression new fitX: x y: y
 ]

@@ -7,8 +7,8 @@ Class {
 	#category : #'AI-Lapack-Experiment'
 }
 
-{ #category : #'experiment definition' }
-LapackLeastSquaresSolver class >> linearRegressionSolvingAlgorithmClass [
+{ #category : #private }
+LapackLeastSquaresSolver >> runRegressionSolverX: x y: y [
 
-	^ AILinearRegressionLeastSquares
+	^ AILinearRegressionLeastSquares new fitX: x y: y
 ]

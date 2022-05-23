@@ -7,8 +7,15 @@ Class {
 	#category : #'AI-Lapack-Experiment'
 }
 
-{ #category : #'experiment definition' }
-PharoLeastSquaresSolver class >> linearRegressionSolvingAlgorithmClass [
+{ #category : #initialization }
+PharoLeastSquaresSolver >> initialize [
 
-	^ AILinearRegressionLeastSquaresVanilla
+	super initialize.
+	n := 1
+]
+
+{ #category : #private }
+PharoLeastSquaresSolver >> runRegressionSolverX: x y: y [
+
+	^ AILinearRegressionLeastSquaresVanilla new fitX: x y: y
 ]

@@ -4,23 +4,47 @@ I am an abstract class for solving the linear regression using different algorit
 Class {
 	#name : #AbstractLinearRegressionSolver,
 	#superclass : #Object,
+	#instVars : [
+		'n'
+	],
 	#category : #'AI-Lapack-Experiment'
 }
 
+{ #category : #'experiment definition' }
+AbstractLinearRegressionSolver >> bigDatasetFileName [
+
+	^ 'huge_dataset.csv'
+]
+
+{ #category : #private }
+AbstractLinearRegressionSolver >> experiment: data [
+
+	| timeAccumulator x y |
+	x := data at: 'x'.
+	y := data at: 'y'.
+
+	self garbageCollect.
+
+	timeAccumulator := [ 1 to: n do: [ self runRegressionSolverX: x y: y ] ] timeToRun.
+
+	^ timeAccumulator / n
+]
+
 { #category : #utilities }
-AbstractLinearRegressionSolver class >> garbageCollect [
+AbstractLinearRegressionSolver >> garbageCollect [
 
 	^ 10 timesRepeat: [ SmalltalkImage current garbageCollect ]
 ]
 
-{ #category : #'experiment definition' }
-AbstractLinearRegressionSolver class >> linearRegressionSolvingAlgorithmClass [
+{ #category : #initialization }
+AbstractLinearRegressionSolver >> initialize [
 
-	^ self subclassResponsibility
+	super initialize.
+	n := 5
 ]
 
 { #category : #utilities }
-AbstractLinearRegressionSolver class >> loadData: fileName [
+AbstractLinearRegressionSolver >> loadData: fileName [
 
 	| directory file data withoutHeaders x y |
 	directory := './pharo-local/iceberg/jordanmontt/lapack-experiment/data/'.
@@ -41,43 +65,44 @@ AbstractLinearRegressionSolver class >> loadData: fileName [
 ]
 
 { #category : #'experiment definition' }
-AbstractLinearRegressionSolver class >> mediumDatasetFileName [
+AbstractLinearRegressionSolver >> mediumDatasetFileName [
 
 	^ '1191_BNG_pbc.csv'
 ]
 
+{ #category : #api }
+AbstractLinearRegressionSolver >> runBigDatasetExperiment [
+
+	^ self runExperimentNTimes: (self loadData: self bigDatasetFileName)
+]
+
 { #category : #private }
-AbstractLinearRegressionSolver class >> runExperiment: datasetFileName [
+AbstractLinearRegressionSolver >> runExperimentNTimes: data [
 
-	| data model lapackTime x y |
-	data := self loadData: datasetFileName.
-	x := data at: 'x'.
-	y := data at: 'y'.
-
-	model := self linearRegressionSolvingAlgorithmClass new.
-
-	self garbageCollect.
-	
-	lapackTime := [ model fitX: x y: y ] timeToRun.
-
-	^ lapackTime
+	^ [ self experiment: data ] on: Exception
+		  do: [ 'error' ]
 ]
 
 { #category : #api }
-AbstractLinearRegressionSolver class >> runMediumDatasetExperiment [
+AbstractLinearRegressionSolver >> runMediumDatasetExperiment [
 
-	"^ self runExperiment: self mediumDatasetFileName"
-	^ '-'
+	^ self runExperimentNTimes: (self loadData: self mediumDatasetFileName)
+]
+
+{ #category : #private }
+AbstractLinearRegressionSolver >> runRegressionSolverX: x y: y [
+
+	^ self subclassResponsibility
 ]
 
 { #category : #api }
-AbstractLinearRegressionSolver class >> runSmallDatasetExperiment [
+AbstractLinearRegressionSolver >> runSmallDatasetExperiment [
 
-	^ self runExperiment: self smallDatasetFileName
+	^ self runExperimentNTimes: (self loadData: self smallDatasetFileName)
 ]
 
 { #category : #'experiment definition' }
-AbstractLinearRegressionSolver class >> smallDatasetFileName [
+AbstractLinearRegressionSolver >> smallDatasetFileName [
 
 	^ 'feynman_I_10_7.csv'
 ]
