@@ -15,7 +15,7 @@ class AbstractExperimentSolver:
 		return x, y
 
 	def get_small_experiment_data(self):
-		return self.get_input_matrix_and_output_vector('feynman_I_10_7.csv')
+		return self.get_input_matrix_and_output_vector('feynman_I_10_7.tsv', '\t')
 
 	def get_medium_experiment_data(self):
 		return self.get_input_matrix_and_output_vector('1191_BNG_pbc.tsv', '\t')
@@ -33,7 +33,8 @@ class AbstractExperimentSolver:
 	def run_experiment_n_times(self, x, y):
 		try:
 			return self.experiment(x, y)
-		except BaseException as e:
+		except BaseException as exception:
+			print(exception)
 			return 'error'
 
 	def run_small_experiment(self):
