@@ -35,7 +35,7 @@ class AbstractExperimentSolver:
 			return self.experiment(x, y)
 		except BaseException as exception:
 			print(exception)
-			return 'error'
+			return str(exception).replace(',', '')
 
 	def run_small_experiment(self):
 		x, y = self.get_small_experiment_data()
