@@ -12,6 +12,7 @@ PharoExperiment >> csvFile [
 
 	| file |
 	file := self fileName asFileReference.
+	file deleteIfAbsent: [  ].
 	file ensureCreateFile.
 	^ file
 ]

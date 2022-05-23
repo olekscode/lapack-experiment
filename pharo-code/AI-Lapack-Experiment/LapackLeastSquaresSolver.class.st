@@ -7,6 +7,13 @@ Class {
 	#category : #'AI-Lapack-Experiment'
 }
 
+{ #category : #initialization }
+LapackLeastSquaresSolver >> initialize [
+
+	super initialize.
+	n := 1
+]
+
 { #category : #private }
 LapackLeastSquaresSolver >> runRegressionSolverX: x y: y [
 
