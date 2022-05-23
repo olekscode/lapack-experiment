@@ -25,9 +25,9 @@ AbstractLinearRegressionSolver >> experiment: data [
 
 	self garbageCollect.
 
-	timeAccumulator := [ 1 to: n do: [ self runRegressionSolverX: x y: y ] ] timeToRun.
+	timeAccumulator := [ 1 to: n do: [ :i | self runRegressionSolverX: x y: y ] ] timeToRun.
 
-	^ timeAccumulator / n
+	^ (timeAccumulator / n) totalSeconds asFloat
 ]
 
 { #category : #utilities }
@@ -82,7 +82,7 @@ AbstractLinearRegressionSolver >> runBigDatasetExperiment [
 AbstractLinearRegressionSolver >> runExperimentNTimes: data [
 
 	^ [ self experiment: data ] on: Exception
-		  do: [ 'error' ]
+		do: [ :e | e asString copyReplaceAll: ',' with: ' ' ]
 ]
 
 { #category : #api }

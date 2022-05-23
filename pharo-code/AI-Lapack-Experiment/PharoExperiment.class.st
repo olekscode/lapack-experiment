@@ -26,7 +26,7 @@ PharoExperiment >> fileName [
 { #category : #api }
 PharoExperiment >> runExperiment [
 
-	^ self runExperimentForAllSolvers
+	self runExperimentForAllSolvers
 ]
 
 { #category : #actions }
@@ -48,16 +48,12 @@ PharoExperiment >> runExperimentForAllSolvers [
 		pharoGradientDescentTime: "gradientDescentSolver runMediumDatasetExperiment"'-';
 		pharoLeastSquaresTime: "pharoLeastSquaresSolver runMediumDatasetExperiment"'-'.
 		
-	"resultsOfBigDataset := ExperimentResultDataHolder new
-		lapackLeastSquaresTime: lapackSolver runBigDatasetExperiment;
-		pharoGradientDescentTime: gradientDescentSolver runBigDatasetExperiment;
-		pharoLeastSquaresTime: pharoLeastSquaresSolver runBigDatasetExperiment."
 	resultsOfBigDataset := ExperimentResultDataHolder new
-		lapackLeastSquaresTime: '-';
-		pharoGradientDescentTime: '-';
-		pharoLeastSquaresTime: '-'.
+		lapackLeastSquaresTime: lapackSolver runBigDatasetExperiment;
+		pharoGradientDescentTime: "gradientDescentSolver runBigDatasetExperiment" '-';
+		pharoLeastSquaresTime: "pharoLeastSquaresSolver runBigDatasetExperiment" '-'.
 	
-	^ self writeCsvFileToDiskSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset
+	self writeCsvFileToDiskSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset
 ]
 
 { #category : #actions }
@@ -65,7 +61,7 @@ PharoExperiment >> writeCsvFileToDiskSmall: resultsOfSmallDataset medium: result
 
 	| file |
 	file := self csvFile.
-	^ file writeStreamDo: [ :stream | 
+	file writeStreamDo: [ :stream | 
 		stream
 			<< 'Pharo + LAPACK Least Squares, ' << 'Pure Pharo Least Squares, ' << 'Pure Pharo Gradient Descent'
 			<< String cr.
