@@ -13,7 +13,7 @@ Class {
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> bigDatasetFileName [
 
-	^ 'huge_dataset.csv'
+	^ 'big_dataset.csv'
 ]
 
 { #category : #private }
@@ -44,21 +44,19 @@ AbstractLinearRegressionSolver >> initialize [
 ]
 
 { #category : #utilities }
-AbstractLinearRegressionSolver >> loadData: fileName separator: aCharacter [
+AbstractLinearRegressionSolver >> loadData: fileName [
 
-	| directory file data withoutHeaders x y |
+	| directory file data asNumbers x y |
 	directory := './pharo-local/iceberg/jordanmontt/lapack-experiment/data/'.
 	file := (directory , '/' , fileName) asFileReference.
 
-	data := (NeoCSVReader on: file readStream)
-		separator: aCharacter;
-		upToEnd.
+	data := (NeoCSVReader on: file readStream) upToEnd.
 
-	withoutHeaders := data allButFirst collect: [ :each | 
+	asNumbers := data collect: [ :each | 
 		each collect: [ :other | other asNumber ] ].
 
-	x := withoutHeaders collect: [ :each | each allButLast ].
-	y := withoutHeaders collect: [ :each | each last ].
+	x := asNumbers collect: [ :each | each allButLast ].
+	y := asNumbers collect: [ :each | each last ].
 
 	^ Dictionary new
 		at: 'x' put: x;
@@ -69,13 +67,13 @@ AbstractLinearRegressionSolver >> loadData: fileName separator: aCharacter [
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> mediumDatasetFileName [
 
-	^ '1191_BNG_pbc.tsv'
+	^ 'medium_dataset.csv'
 ]
 
 { #category : #api }
 AbstractLinearRegressionSolver >> runBigDatasetExperiment [
 
-	^ self runExperimentNTimes: (self loadData: self bigDatasetFileName separator: $,)
+	^ self runExperimentNTimes: (self loadData: self bigDatasetFileName)
 ]
 
 { #category : #private }
@@ -88,7 +86,7 @@ AbstractLinearRegressionSolver >> runExperimentNTimes: data [
 { #category : #api }
 AbstractLinearRegressionSolver >> runMediumDatasetExperiment [
 
-	^ self runExperimentNTimes: (self loadData: self mediumDatasetFileName separator: Character tab)
+	^ self runExperimentNTimes: (self loadData: self mediumDatasetFileName)
 ]
 
 { #category : #private }
@@ -100,11 +98,11 @@ AbstractLinearRegressionSolver >> runRegressionSolverX: x y: y [
 { #category : #api }
 AbstractLinearRegressionSolver >> runSmallDatasetExperiment [
 
-	^ self runExperimentNTimes: (self loadData: self smallDatasetFileName separator: Character tab)
+	^ self runExperimentNTimes: (self loadData: self smallDatasetFileName)
 ]
 
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> smallDatasetFileName [
 
-	^ 'feynman_I_10_7.tsv'
+	^ 'small_dataset.csv'
 ]
