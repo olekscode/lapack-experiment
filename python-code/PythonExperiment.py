@@ -20,7 +20,7 @@ print('Finished Python Gradient Descent with medium dataset')
 # python_gradient_descent_big_time = python_gradient_descent_solver.run_big_experiment()
 # print('Finished Python Gradient Descent with big dataset')
 
-fields = ['ScikitLearn Gradient Descent', 'Pure Python Gradient Descent']
+fields = ['ScikitLearn Least Squares', 'Pure Python Gradient Descent']
 
 rows = [[scikit_learn_gradient_descent_small_time, python_gradient_descent_small_time],
         [scikit_learn_gradient_descent_medium_time, python_gradient_descent_medium_time],
