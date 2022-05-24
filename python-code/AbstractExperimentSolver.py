@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas
 import time as time
 
 
@@ -9,9 +9,9 @@ class AbstractExperimentSolver:
 
 	def get_input_matrix_and_output_vector(self, file_name, separator=','):
 		directory = '../data/' + file_name
-		df = pd.read_csv(filepath_or_buffer=directory, sep=separator)
-		x = df.iloc[:,0:df.shape[1] - 1]
-		y = df.iloc[:,df.shape[1] - 1]
+		df = pandas.read_csv(filepath_or_buffer=directory, sep=separator)
+		x = df.iloc[:, 0:df.shape[1] - 1]
+		y = df.iloc[:, df.shape[1] - 1]
 		return x, y
 
 	def get_small_experiment_data(self):

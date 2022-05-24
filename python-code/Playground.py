@@ -6,3 +6,5 @@ from ScikitLearnGradientDescentSolver import ScikitLearnGradientDescentSolver
 # print(ScikitLearnGradientDescentSolver().run_small_experiment())  # 0.05976510047912598
 # print(ScikitLearnLeastSquaresSolver().run_small_experiment())  # 0.00883021354675293
 # print(ScikitLearnGradientDescentSolver().run_medium_experiment())  # 93.12271838188171
+# print(ScikitLearnGradientDescentSolver().run_big_experiment())   # 14.602666139602661
+print(PythonGradientDescentSolver().run_medium_experiment())
