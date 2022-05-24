@@ -1,3 +1,6 @@
+import random
+
+
 class PythonGradientDescent:
     def __init__(self):
         self.learningRate = 0.01
@@ -10,11 +13,11 @@ class PythonGradientDescent:
     def is_nan(self, num):
         return num != num
 
-    def initialize_weights_with_zeros(self, size):
-        self.weights = [0] * size
+    def initialize_random_weights(self, size):
+        self.weights = [random.random() for i in range(size)]
 
     def fit(self, input_matrix, actual_values):
-        self.initialize_weights_with_zeros(len(input_matrix[0]))
+        self.initialize_random_weights(len(input_matrix[0]))
 
         self.costHistory = []
         self.costHistory.append(self.cost_function(input_matrix, actual_values))
@@ -28,7 +31,7 @@ class PythonGradientDescent:
 
     def cost_function(self, input_matrix, actual_values):
         predicted_values = self.hypothesis_function(input_matrix)
-        squared_errors = [(actual_values[i] - predicted_values[i]) ** 2 for i in range(len(actual_values))]
+        squared_errors = [(actual - predicted) ** 2 for actual, predicted in zip(actual_values, predicted_values)]
         return sum(squared_errors) / len(squared_errors) / 2
 
     def has_converged(self):
@@ -38,8 +41,8 @@ class PythonGradientDescent:
             return False
         precision = 1e-10
 
-        current_cost = self.costHistory[len(self.costHistory) - 1]
-        previous_cost = self.costHistory[len(self.costHistory) - 2]
+        current_cost = self.costHistory[-1]
+        previous_cost = self.costHistory[-2]
 
         difference = current_cost - previous_cost
 
@@ -56,17 +59,15 @@ class PythonGradientDescent:
 
         bias_derivative = self.bias_derivative(cost_derivative)
 
-        learning_rate_times_weight_derivative = [x * self.learningRate for x in weight_derivative]
+        learning_rate = self.learningRate
+        learning_rate_times_weight_derivative = [x * learning_rate for x in weight_derivative]
 
-        self.weights = [(self.weights[i] - learning_rate_times_weight_derivative[i]) for i in range(len(self.weights))]
+        self.weights = [w - lrtwd for w, lrtwd in zip(self.weights, learning_rate_times_weight_derivative)]
         self.bias = self.bias - (self.learningRate * bias_derivative)
 
     def cost_derivative(self, predicted_output_vector, target_output_vector):
-        derivatives = []
-        for i in range(len(predicted_output_vector)):
-            derivative = predicted_output_vector[i] - target_output_vector[i]
-            derivatives.append(derivative)
-        return derivatives
+        return [prediction - actual_value for prediction, actual_value in
+                zip(predicted_output_vector, target_output_vector)]
 
     def bias_derivative(self, cost_derivative):
         return sum(cost_derivative) / len(cost_derivative)
@@ -74,14 +75,14 @@ class PythonGradientDescent:
     def weight_derivative(self, input_matrix, cost_derivative_vector):
         weight_derivative = []
         for i in range(len(input_matrix)):
-            row_times_vector = [input_matrix[i][j] * cost_derivative_vector[i] for j in range(len(input_matrix[i]))]
+            row_times_vector = [element * cost_derivative_vector[i] for element in input_matrix[i]]
             weight_derivative.append(row_times_vector)
 
         answer = []
-        for column in range(len(weight_derivative[0])):
+        for index_column in range(len(weight_derivative[0])):
             derivative = 0
             for row in weight_derivative:
-                derivative += row[column]
+                derivative += row[index_column]
             answer.append(derivative)
         return [(element / len(cost_derivative_vector)) for element in answer]
 
@@ -93,7 +94,7 @@ class PythonGradientDescent:
 
     def weighted_sum(self, input_matrix):
         weighted_sum = []
-        for i in range(len(input_matrix)):
-            lists_multiplication = [input_matrix[i][j] * self.weights[j] for j in range(len(self.weights))]
+        for row in input_matrix:
+            lists_multiplication = [element * weight for element, weight in zip(row, self.weights)]
             weighted_sum.append(sum(lists_multiplication) + self.bias)
         return weighted_sum
