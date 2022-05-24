@@ -3,6 +3,7 @@ from PythonGradientDescentSolver import PythonGradientDescentSolver
 from ScikitLearnGradientDescentSolver import ScikitLearnGradientDescentSolver
 import csv
 
+
 print('Starting experiment')
 
 scikit_learn_least_squares_solver = ScikitLearnLeastSquaresSolver()
