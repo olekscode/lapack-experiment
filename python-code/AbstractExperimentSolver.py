@@ -7,21 +7,21 @@ class AbstractExperimentSolver:
 	def __init__(self):
 		self.n = 5
 
-	def get_input_matrix_and_output_vector(self, file_name, separator=','):
+	def get_input_matrix_and_output_vector(self, file_name):
 		directory = '../data/' + file_name
-		df = pandas.read_csv(filepath_or_buffer=directory, sep=separator)
+		df = pandas.read_csv(filepath_or_buffer=directory, header=None)
 		x = df.iloc[:, 0:df.shape[1] - 1]
 		y = df.iloc[:, df.shape[1] - 1]
 		return x, y
 
 	def get_small_experiment_data(self):
-		return self.get_input_matrix_and_output_vector('feynman_I_10_7.tsv', '\t')
+		return self.get_input_matrix_and_output_vector('small_dataset.csv')
 
 	def get_medium_experiment_data(self):
-		return self.get_input_matrix_and_output_vector('1191_BNG_pbc.tsv', '\t')
+		return self.get_input_matrix_and_output_vector('medium_dataset.csv')
 
 	def get_big_experiment_data(self):
-		return self.get_input_matrix_and_output_vector('huge_dataset.csv')
+		return self.get_input_matrix_and_output_vector('big_dataset.csv')
 
 	def experiment(self, x, y):
 		start_time = time.time()

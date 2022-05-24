@@ -11,15 +11,15 @@ def generate_dataset(number_rows, number_columns):
 
 def write_dataset_to_disk(dataset, dataset_name):
     df = pandas.DataFrame(dataset)
-    path = './data' + dataset_name
-    df.to_csv(path_or_buf=path, index=False, sep=',', header=False)
+    path = './data/' + dataset_name
+    df.to_csv(path_or_buf=path, index=False, header=False)
 
 
 def run_dataset_generation(n_rows, n_columns, file_name):
     print('Starting generating dataset (', n_rows, ' rows x ', n_columns, ' columns )')
     dataset = generate_dataset(n_rows, n_columns)
     write_dataset_to_disk(dataset, file_name)
-    print('Finished dataset generation')
+    print('Finished dataset (', n_rows, ' rows x ', n_columns, ' columns )', 'generation')
 
 
 # Small dataset
