@@ -4,3 +4,6 @@ __pycache__/
 1191_BNG_pbc.csv
 .idea/
 huge_dataset.csv
+small_dataset.csv
+medium_dataset.csv
+big_dataset.csv
