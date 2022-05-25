@@ -28,7 +28,16 @@ scikit_least_squares_solver_name = 'ScikitLearn Least Squares'
 
 scikit_least_squares_small = run_small(scikit_least_squares_solver, scikit_least_squares_solver_name)
 scikit_least_squares_medium = run_medium(scikit_least_squares_solver, scikit_least_squares_solver_name)
-scikit_least_squares_big = run_big(scikit_least_squares_solver, scikit_least_squares_solver_name)
+# scikit_least_squares_big = run_big(scikit_least_squares_solver, scikit_least_squares_solver_name)
+
+
+# Scikit Learn gradient descent
+scikit_gradient_descent_solver = ScikitLearnGradientDescentSolver()
+scikit_gradient_descent_solver_name = 'ScikitLearn Gradient Descent'
+
+scikit_gradient_descent_small = run_small(scikit_gradient_descent_solver, scikit_gradient_descent_solver_name)
+scikit_gradient_descent_medium = run_medium(scikit_gradient_descent_solver, scikit_gradient_descent_solver_name)
+# scikit_gradient_descent_big = run_big(scikit_gradient_descent_solver, scikit_gradient_descent_solver_name)
 
 
 # Python gradient descent
@@ -40,23 +49,14 @@ python_gradient_descent_medium = run_medium(python_gradient_descent_solver, pyth
 # python_gradient_descent_big = run_big(python_gradient_descent_solver, python_gradient_descent_solver_name)
 
 
-# Scikit Learn gradient descent
-scikit_gradient_descent_solver = ScikitLearnGradientDescentSolver()
-scikit_gradient_descent_solver_name = 'ScikitLearn Gradient Descent'
-
-scikit_gradient_descent_small = run_small(scikit_gradient_descent_solver, scikit_gradient_descent_solver_name)
-scikit_gradient_descent_medium = run_medium(scikit_gradient_descent_solver, scikit_gradient_descent_solver_name)
-scikit_gradient_descent_big = run_big(scikit_gradient_descent_solver, scikit_gradient_descent_solver_name)
-
-
 # Writing the csv file
 fields = ['ScikitLearn Least Squares', 'Pure Python Gradient Descent', 'ScikitLearn Gradient Descent']
 
 rows = [[scikit_least_squares_small, python_gradient_descent_small, scikit_gradient_descent_small],
-        [scikit_least_squares_medium, python_gradient_descent_medium, scikit_gradient_descent_medium],
-        [scikit_least_squares_big, '-', scikit_gradient_descent_big]]
+        [scikit_least_squares_medium, python_gradient_descent_medium, scikit_gradient_descent_medium]]
+        # ,[scikit_least_squares_big, '-', scikit_gradient_descent_big]]
 
-filename = "../experiment-results/python-results-artificial-datasets.csv"
+filename = "../experiment-results/python-results-real-datasets.csv"
 
 with open(filename, 'w') as csvfile:
     csv_writer = csv.writer(csvfile)
