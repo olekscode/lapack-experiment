@@ -54,6 +54,8 @@ AbstractLinearRegressionSolver >> loadData: fileName [
 
 	asNumbers := data collect: [ :each | 
 		each collect: [ :other | other asNumber ] ].
+	"withoutHeaders := data allButFirst collect: [ :each | 
+		each collect: [ :other | other asNumber ] ]."
 
 	x := asNumbers collect: [ :each | each allButLast ].
 	y := asNumbers collect: [ :each | each last ].
@@ -67,7 +69,7 @@ AbstractLinearRegressionSolver >> loadData: fileName [
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> mediumDatasetFileName [
 
-	^ 'medium_dataset.csv'
+	^ 'medium_dataset.csv' "'1191_BNG_pbc.tsv'"
 ]
 
 { #category : #api }
@@ -104,5 +106,5 @@ AbstractLinearRegressionSolver >> runSmallDatasetExperiment [
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> smallDatasetFileName [
 
-	^ 'small_dataset.csv'
+	^ 'small_dataset.csv' "'feynman_I_10_7.tsv'"
 ]
