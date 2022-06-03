@@ -20,7 +20,9 @@ PharoExperiment >> csvFile [
 { #category : #actions }
 PharoExperiment >> fileName [
 
-	^ './pharo-local/iceberg/YOUR-NAME/lapack-experiment/experiment-results/pharo-results.csv'
+	"Override this with your directory"
+
+	^ './pharo-local/iceberg/4open.science/lapack-experiment/experiment-results/pharo-results.csv'
 ]
 
 { #category : #actions }
