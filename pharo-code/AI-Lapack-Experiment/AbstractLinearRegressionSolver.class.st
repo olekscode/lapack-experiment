@@ -69,7 +69,7 @@ AbstractLinearRegressionSolver >> loadData: fileName [
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> mediumDatasetFileName [
 
-	^ 'medium_dataset.csv' "'1191_BNG_pbc.tsv'"
+	^ 'medium_dataset.csv'
 ]
 
 { #category : #api }
@@ -106,5 +106,5 @@ AbstractLinearRegressionSolver >> runSmallDatasetExperiment [
 { #category : #'experiment definition' }
 AbstractLinearRegressionSolver >> smallDatasetFileName [
 
-	^ 'small_dataset.csv' "'feynman_I_10_7.tsv'"
+	^ 'small_dataset.csv'
 ]

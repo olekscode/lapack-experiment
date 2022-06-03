@@ -7,13 +7,6 @@ Class {
 	#category : #'AI-Lapack-Experiment'
 }
 
-{ #category : #initialization }
-PharoLeastSquaresSolver >> initialize [
-
-	super initialize.
-	n := 1
-]
-
 { #category : #private }
 PharoLeastSquaresSolver >> runRegressionSolverX: x y: y [
 

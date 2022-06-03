@@ -20,25 +20,24 @@ PharoExperiment >> csvFile [
 { #category : #actions }
 PharoExperiment >> fileName [
 
-	^ './pharo-local/iceberg/jordanmontt/lapack-experiment/experiment-results/pharo-results-artificial.csv'
+	"Override this with your directory"
+
+	^ './pharo-local/iceberg/4open.science/lapack-experiment/experiment-results/pharo-results.csv'
 ]
 
 { #category : #actions }
-PharoExperiment >> runBigExperimentLapack: lapackSolver gradientD: gradientDescentSolver leastS: leastSquaresSolver [
+PharoExperiment >> runBigExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver [
 
-	| lapackBigTime gradientDescentBigTime leastSquaresBigTime |
+	| lapackBigTime gradientDescentBigTime |
 
 	lapackBigTime := lapackSolver runBigDatasetExperiment.
 	Transcript crShow: 'Finished lapack big dataset in ', lapackBigTime asString ,' seconds'.
-	gradientDescentBigTime := "gradientDescentSolver runBigDatasetExperiment" '-'.
+	gradientDescentBigTime := '-'.
 	Transcript crShow: 'Finished gradient descent big dataset in ', gradientDescentBigTime asString ,' seconds'.
-	leastSquaresBigTime := "leastSquaresSolver runBigDatasetExperiment" '-'.
-	Transcript crShow: 'Finished least squares big dataset in ', leastSquaresBigTime asString ,' seconds'.
-
+	
 	^ ExperimentResultDataHolder new
 		lapackLeastSquaresTime: lapackBigTime;
-		pharoGradientDescentTime: gradientDescentBigTime;
-		pharoLeastSquaresTime: leastSquaresBigTime
+		pharoGradientDescentTime: gradientDescentBigTime
 ]
 
 { #category : #api }
@@ -50,19 +49,18 @@ PharoExperiment >> runExperiment [
 { #category : #actions }
 PharoExperiment >> runExperimentForAllSolvers [
 
-	| resultsOfSmallDataset resultsOfMediumDataset resultsOfBigDataset lapackSolver gradientDescentSolver pharoLeastSquaresSolver |
+	| resultsOfSmallDataset resultsOfMediumDataset resultsOfBigDataset lapackSolver gradientDescentSolver |
 	lapackSolver := LapackLeastSquaresSolver new.
 	gradientDescentSolver := PharoGradientDescentSolver new.
-	pharoLeastSquaresSolver := PharoLeastSquaresSolver new.
 
 	"Small experiment"
-	resultsOfSmallDataset := self runSmallExperimentLapack: lapackSolver gradientD: gradientDescentSolver leastS: pharoLeastSquaresSolver.
+	resultsOfSmallDataset := self runSmallExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver.
 
 	"Medium experiment"
-	resultsOfMediumDataset := self runMediumExperimentLapack: lapackSolver gradientD: gradientDescentSolver leastS: pharoLeastSquaresSolver.
+	resultsOfMediumDataset := self runMediumExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver.
 	
 	"Big experiment"
-	resultsOfBigDataset := self runBigExperimentLapack: lapackSolver gradientD: gradientDescentSolver leastS: pharoLeastSquaresSolver.
+	resultsOfBigDataset := self runBigExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver.
 
 	self writeCsvFileToDiskSmall: resultsOfSmallDataset
 		medium: resultsOfMediumDataset
@@ -70,39 +68,33 @@ PharoExperiment >> runExperimentForAllSolvers [
 ]
 
 { #category : #actions }
-PharoExperiment >> runMediumExperimentLapack: lapackSolver gradientD: gradientDescentSolver leastS: leastSquaresSolver [
+PharoExperiment >> runMediumExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver [
 
-	| lapackMediumlTime gradientDescentMediumTime leastSquaresMediumTime |
+	| lapackMediumlTime gradientDescentMediumTime |
 
 	lapackMediumlTime := lapackSolver runMediumDatasetExperiment.
 	Transcript crShow: 'Finished lapack medium dataset in ', lapackMediumlTime asString ,' seconds'.
-	gradientDescentMediumTime := "gradientDescentSolver runMediumDatasetExperiment" '-'.
+	gradientDescentMediumTime := gradientDescentSolver runMediumDatasetExperiment.
 	Transcript crShow: 'Finished gradient descent medium dataset in ', gradientDescentMediumTime asString ,' seconds'.
-	leastSquaresMediumTime := "leastSquaresSolver runMediumDatasetExperiment" '-'.
-	Transcript crShow: 'Finished least squares medium dataset in ', leastSquaresMediumTime asString ,' seconds'.
-
+	
 	^ ExperimentResultDataHolder new
 		lapackLeastSquaresTime: lapackMediumlTime;
-		pharoGradientDescentTime: gradientDescentMediumTime;
-		pharoLeastSquaresTime: leastSquaresMediumTime
+		pharoGradientDescentTime: gradientDescentMediumTime
 ]
 
 { #category : #actions }
-PharoExperiment >> runSmallExperimentLapack: lapackSolver gradientD: gradientDescentSolver leastS: leastSquaresSolver [
+PharoExperiment >> runSmallExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver [
 
-	| lapackSmallTime gradientDescentSmallTime leastSquaresSmallTime |
+	| lapackSmallTime gradientDescentSmallTime |
 
 	lapackSmallTime := lapackSolver runSmallDatasetExperiment.
 	Transcript crShow: 'Finished lapack small dataset in ', lapackSmallTime asString ,' seconds'.
 	gradientDescentSmallTime := gradientDescentSolver runSmallDatasetExperiment.
 	Transcript crShow: 'Finished gradient descent small dataset in ', gradientDescentSmallTime asString ,' seconds'.
-	leastSquaresSmallTime := leastSquaresSolver runSmallDatasetExperiment.
-	Transcript crShow: 'Finished least squares small dataset in ', leastSquaresSmallTime asString ,' seconds'.
 
 	^ ExperimentResultDataHolder new
 		lapackLeastSquaresTime: lapackSmallTime;
-		pharoGradientDescentTime: gradientDescentSmallTime;
-		pharoLeastSquaresTime: leastSquaresSmallTime
+		pharoGradientDescentTime: gradientDescentSmallTime
 ]
 
 { #category : #actions }
@@ -112,7 +104,7 @@ PharoExperiment >> writeCsvFileToDiskSmall: resultsOfSmallDataset medium: result
 	file := self csvFile.
 	file writeStreamDo: [ :stream | 
 		stream
-			<< 'Pharo + LAPACK Least Squares, ' << 'Pure Pharo Least Squares, ' << 'Pure Pharo Gradient Descent'
+			<< 'Pharo + LAPACK Least Squares, ' << 'Pure Pharo Gradient Descent'
 			<< String cr.
 		resultsOfSmallDataset printOn: stream.
 		stream << String cr.
