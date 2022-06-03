@@ -6,8 +6,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'lapackLeastSquaresTime',
-		'pharoGradientDescentTime',
-		'pharoLeastSquaresTime'
+		'pharoGradientDescentTime'
 	],
 	#category : #'AI-Lapack-Experiment'
 }
@@ -36,22 +35,9 @@ ExperimentResultDataHolder >> pharoGradientDescentTime: anObject [
 	pharoGradientDescentTime := anObject
 ]
 
-{ #category : #accessing }
-ExperimentResultDataHolder >> pharoLeastSquaresTime [
-
-	^ pharoLeastSquaresTime
-]
-
-{ #category : #accessing }
-ExperimentResultDataHolder >> pharoLeastSquaresTime: anObject [
-
-	pharoLeastSquaresTime := anObject
-]
-
 { #category : #printing }
 ExperimentResultDataHolder >> printOn: aStream [
 
 	aStream << lapackLeastSquaresTime asString << ','
-	<< pharoLeastSquaresTime asString << ','
 	<< pharoGradientDescentTime asString
 ]

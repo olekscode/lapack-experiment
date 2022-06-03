@@ -7,13 +7,6 @@ Class {
 	#category : #'AI-Lapack-Experiment'
 }
 
-{ #category : #initialization }
-PharoGradientDescentSolver >> initialize [
-
-	super initialize.
-	n := 1
-]
-
 { #category : #private }
 PharoGradientDescentSolver >> runRegressionSolverX: x y: y [
 
