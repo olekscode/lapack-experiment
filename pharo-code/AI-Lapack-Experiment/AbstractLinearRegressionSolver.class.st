@@ -40,7 +40,7 @@ AbstractLinearRegressionSolver >> garbageCollect [
 AbstractLinearRegressionSolver >> initialize [
 
 	super initialize.
-	n := 5
+	n := 1
 ]
 
 { #category : #utilities }

@@ -5,7 +5,7 @@ import time as time
 class AbstractExperimentSolver:
 
 	def __init__(self):
-		self.n = 5
+		self.n = 1
 
 	def get_input_matrix_and_output_vector(self, file_name, separator=','):
 		directory = '../data/' + file_name
