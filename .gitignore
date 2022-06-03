@@ -7,3 +7,5 @@ huge_dataset.csv
 small_dataset.csv
 medium_dataset.csv
 big_dataset.csv
+!data/
+!experiment-results/
