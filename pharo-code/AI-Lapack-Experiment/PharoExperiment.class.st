@@ -20,7 +20,7 @@ PharoExperiment >> csvFile [
 { #category : #actions }
 PharoExperiment >> fileName [
 
-	^ './pharo-local/iceberg/jordanmontt/lapack-experiment/experiment-results/pharo-results.csv'
+	^ './pharo-local/iceberg/YOUR-NAME/lapack-experiment/experiment-results/pharo-results.csv'
 ]
 
 { #category : #actions }
@@ -72,7 +72,7 @@ PharoExperiment >> runMediumExperimentLapack: lapackSolver pharoGradientDescent:
 
 	lapackMediumlTime := lapackSolver runMediumDatasetExperiment.
 	Transcript crShow: 'Finished lapack medium dataset in ', lapackMediumlTime asString ,' seconds'.
-	gradientDescentMediumTime := "gradientDescentSolver runMediumDatasetExperiment" '-'.
+	gradientDescentMediumTime := gradientDescentSolver runMediumDatasetExperiment.
 	Transcript crShow: 'Finished gradient descent medium dataset in ', gradientDescentMediumTime asString ,' seconds'.
 	
 	^ ExperimentResultDataHolder new
