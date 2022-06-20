@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Have installed `python3`, `scikit-learn`, `pandas` and `Pharo11` in your computer.
+- Have installed `python3`, `scikit-learn`, `pandas` and `Pharo11` on your computer.
 - Have around 7GB of free memory space in the hard drive for the datasets.
 
 ## Generating the datasets
@@ -12,6 +12,7 @@ To generate the datasets, you need to run the file `DatasetGenerator.py` using `
 ```
 python3 DatasetGenerator.py
 ```
+
 This step can take until 15 minutes because the datasets are big.
 
 The script will generate the three datasets (small, medium and large) into the `data` directory.
