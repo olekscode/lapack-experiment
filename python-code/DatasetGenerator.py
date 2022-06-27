@@ -31,7 +31,7 @@ run_dataset_generation(200000, 20, 'small_dataset.csv')
 
 # Medium dataset
 
-# run_dataset_generation(1000000, 20, 'medium_dataset.csv')
+run_dataset_generation(1000000, 20, 'medium_dataset.csv')
 
 # Big dataset
 
