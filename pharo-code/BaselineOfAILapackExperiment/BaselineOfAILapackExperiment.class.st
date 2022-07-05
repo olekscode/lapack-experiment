@@ -15,7 +15,7 @@ BaselineOfAILapackExperiment >> baseline: spec [
 		"External dependencies"
 		spec
 			baseline: 'AILinearModels'
-			with: [ spec repository: 'github://pharo-ai/linear-models:lapack/src' ].
+			with: [ spec repository: 'github://pharo-ai/linear-models/src' ].
 		spec
 			baseline: 'NeoCSV'
 			with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
