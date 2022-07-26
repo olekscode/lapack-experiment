@@ -38,6 +38,7 @@ ExperimentResultDataHolder >> pharoGradientDescentTime: anObject [
 { #category : #printing }
 ExperimentResultDataHolder >> printOn: aStream [
 
-	aStream << lapackLeastSquaresTime asString << ','
-	<< pharoGradientDescentTime asString
+	aStream
+		<< 'Lapack time ' << lapackLeastSquaresTime asString << String cr
+		<< 'Pharo Gradient Descent Time: ' << pharoGradientDescentTime asString
 ]

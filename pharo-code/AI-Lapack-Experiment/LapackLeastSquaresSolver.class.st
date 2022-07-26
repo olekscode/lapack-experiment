@@ -12,3 +12,19 @@ LapackLeastSquaresSolver >> runRegressionSolverX: x y: y [
 
 	^ AILinearRegressionLeastSquares new fitX: x y: y
 ]
+
+{ #category : #private }
+LapackLeastSquaresSolver >> runSolver: data [
+
+	| timeAccumulator x y xMatrix |
+	x := data at: 'x'.
+	y := data at: 'y'.
+	
+	xMatrix := AIColumnMajorMatrix rows: x.
+	
+	self garbageCollect.
+
+	timeAccumulator := [ 1 to: n do: [ :i | self runRegressionSolverX: xMatrix y: y ] ] timeToRun.
+
+	^ (timeAccumulator / n) totalSeconds asFloat
+]

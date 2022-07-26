@@ -16,20 +16,6 @@ AbstractLinearRegressionSolver >> bigDatasetFileName [
 	^ 'big_dataset.csv'
 ]
 
-{ #category : #private }
-AbstractLinearRegressionSolver >> experiment: data [
-
-	| timeAccumulator x y |
-	x := data at: 'x'.
-	y := data at: 'y'.
-
-	self garbageCollect.
-
-	timeAccumulator := [ 1 to: n do: [ :i | self runRegressionSolverX: x y: y ] ] timeToRun.
-
-	^ (timeAccumulator / n) totalSeconds asFloat
-]
-
 { #category : #utilities }
 AbstractLinearRegressionSolver >> garbageCollect [
 
@@ -54,8 +40,6 @@ AbstractLinearRegressionSolver >> loadData: fileName [
 
 	asNumbers := data collect: [ :each | 
 		each collect: [ :other | other asNumber ] ].
-	"withoutHeaders := data allButFirst collect: [ :each | 
-		each collect: [ :other | other asNumber ] ]."
 
 	x := asNumbers collect: [ :each | each allButLast ].
 	y := asNumbers collect: [ :each | each last ].
@@ -81,8 +65,8 @@ AbstractLinearRegressionSolver >> runBigDatasetExperiment [
 { #category : #private }
 AbstractLinearRegressionSolver >> runExperimentNTimes: data [
 
-	^ [ self experiment: data ] on: Exception
-		do: [ :e | e asString copyReplaceAll: ',' with: ' ' ]
+	^ [ self runSolver: data ] on: Exception
+		do: [ :e | e asString ]
 ]
 
 { #category : #api }
@@ -101,6 +85,20 @@ AbstractLinearRegressionSolver >> runRegressionSolverX: x y: y [
 AbstractLinearRegressionSolver >> runSmallDatasetExperiment [
 
 	^ self runExperimentNTimes: (self loadData: self smallDatasetFileName)
+]
+
+{ #category : #private }
+AbstractLinearRegressionSolver >> runSolver: data [
+
+	| timeAccumulator x y |
+	x := data at: 'x'.
+	y := data at: 'y'.
+
+	self garbageCollect.
+
+	timeAccumulator := [ 1 to: n do: [ :i | self runRegressionSolverX: x y: y ] ] timeToRun.
+
+	^ (timeAccumulator / n) totalSeconds asFloat
 ]
 
 { #category : #'experiment definition' }
