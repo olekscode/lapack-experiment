@@ -13,7 +13,7 @@ To generate the datasets, you need to run the file `DatasetGenerator.py` using `
 python3 DatasetGenerator.py
 ```
 
-This step can take until 15 minutes because the datasets are big.
+This step can take until 15 minutes because the datasets can be big.
 
 The script will generate the three datasets (small, medium and large) into the `data` directory.
 Note that the datasets are generated using a random seed. So you always have exactly the same datasets.
@@ -26,10 +26,15 @@ The script will run the benchmarks and create a csv file with the results in the
 
 ## Running the Pharo benchmarks
 
-- First, you need to download the Pharo launcher from the Pharo website https://pharo.org/download
-- Create a Pharo 11 image.
-- Import the repository into the image using iceberg.
-Then, override the class side method `PharoExperiment >> fileName` to return an string that will contain where to store the result csv file.
+First, you need to download the Pharo launcher from the Pharo website https://pharo.org/download. Then, create a Pharo 11 image.
+
+For importing the code into the Pharo image you need to use iceberg:
+
+- Open iceberg
+- Click on the right corner button "Add +"
+- Select "Import from existing clone" option
+- Then select the directory of where did you cloned the repo. Note that you must have already the datasets generated to be able to run the code
+- Finnally, in the initial window of Iceberg, select the repository in the list "lapack-experiment", then right click - Metacello - Install baseline of AILapackExperiment (Default)
 
 Finally, you need execute in a Playground
 
@@ -37,4 +42,4 @@ Finally, you need execute in a Playground
 PharoExperiment new runExperiment
 ```
 
-That run the benchmarks and create a csv file with the results in the specified directory
+The script runs the benchmarks and opens a text presenter with the results.
