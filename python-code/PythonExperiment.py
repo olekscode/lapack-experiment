@@ -36,6 +36,7 @@ python_gradient_descent_solver_name = 'Python Gradient Descent'
 
 python_gradient_descent_small = run_small(python_gradient_descent_solver, python_gradient_descent_solver_name)
 python_gradient_descent_medium = run_medium(python_gradient_descent_solver, python_gradient_descent_solver_name)
+# Too slow, it takes hours
 # python_gradient_descent_big = run_big(python_gradient_descent_solver, python_gradient_descent_solver_name)
 
 
