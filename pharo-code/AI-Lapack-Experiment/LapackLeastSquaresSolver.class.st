@@ -14,7 +14,7 @@ LapackLeastSquaresSolver >> runRegressionSolverX: x y: y [
 ]
 
 { #category : #private }
-LapackLeastSquaresSolver >> runSolver: data [
+LapackLeastSquaresSolver >> runSolverNTimes: data [
 
 	| timeAccumulator x y xMatrix |
 	x := data at: 'x'.

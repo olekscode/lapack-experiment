@@ -59,20 +59,13 @@ AbstractLinearRegressionSolver >> mediumDatasetFileName [
 { #category : #api }
 AbstractLinearRegressionSolver >> runBigDatasetExperiment [
 
-	^ self runExperimentNTimes: (self loadData: self bigDatasetFileName)
-]
-
-{ #category : #private }
-AbstractLinearRegressionSolver >> runExperimentNTimes: data [
-
-	^ [ self runSolver: data ] on: Exception
-		do: [ :e | e asString ]
+	^ self runSolver: (self loadData: self bigDatasetFileName)
 ]
 
 { #category : #api }
 AbstractLinearRegressionSolver >> runMediumDatasetExperiment [
 
-	^ self runExperimentNTimes: (self loadData: self mediumDatasetFileName)
+	^ self runSolver: (self loadData: self mediumDatasetFileName)
 ]
 
 { #category : #private }
@@ -84,11 +77,18 @@ AbstractLinearRegressionSolver >> runRegressionSolverX: x y: y [
 { #category : #api }
 AbstractLinearRegressionSolver >> runSmallDatasetExperiment [
 
-	^ self runExperimentNTimes: (self loadData: self smallDatasetFileName)
+	^ self runSolver: (self loadData: self smallDatasetFileName)
 ]
 
 { #category : #private }
 AbstractLinearRegressionSolver >> runSolver: data [
+
+	^ [ self runSolverNTimes: data ] on: Exception
+		do: [ :e | e asString ]
+]
+
+{ #category : #private }
+AbstractLinearRegressionSolver >> runSolverNTimes: data [
 
 	| timeAccumulator x y |
 	x := data at: 'x'.
