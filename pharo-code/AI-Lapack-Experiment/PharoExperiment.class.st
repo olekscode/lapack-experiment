@@ -10,11 +10,9 @@ Class {
 { #category : #actions }
 PharoExperiment >> outputResultSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset [
 
-	"self writeCsvFileToDiskSmall: resultsOfSmallDataset
+	self printResultsSmall: resultsOfSmallDataset
 		medium: resultsOfMediumDataset
-		big: resultsOfBigDataset."
-	
-	self printResultsSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset
+		big: resultsOfBigDataset
 ]
 
 { #category : #actions }
