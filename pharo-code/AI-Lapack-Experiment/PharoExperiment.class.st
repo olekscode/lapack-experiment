@@ -24,7 +24,7 @@ PharoExperiment >> printResultsSmall: resultsOfSmallDataset medium: resultsOfMed
 		aStream 
 			<< 'Small dataset' << String cr << resultsOfSmallDataset asString << String cr << String cr
 			<< 'Medium dataset' << String cr << resultsOfMediumDataset asString << String cr << String cr
-			<< 'Big dataset' << String cr << resultsOfBigDataset asString  ].
+			<< 'Big dataset' << String cr << resultsOfBigDataset asString ].
 	
 	SpTextPresenter new
 		text: text;
