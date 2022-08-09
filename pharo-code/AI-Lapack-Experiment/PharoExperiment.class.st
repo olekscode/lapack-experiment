@@ -38,8 +38,7 @@ PharoExperiment >> runBigExperimentLapack: lapackSolver pharoGradientDescent: gr
 
 	| lapackBigTime gradientDescentBigTime |
 
-	"lapackBigTime := lapackSolver runBigDatasetExperiment."
-	lapackBigTime := '-'.
+	lapackBigTime := lapackSolver runBigDatasetExperiment.
 	"Takes too long, described in the paper"
 	gradientDescentBigTime := '-'.
 
@@ -73,8 +72,7 @@ PharoExperiment >> runMediumExperimentLapack: lapackSolver pharoGradientDescent:
 	| lapackMediumlTime gradientDescentMediumTime |
 
 	lapackMediumlTime := lapackSolver runMediumDatasetExperiment.
-	"gradientDescentMediumTime := gradientDescentSolver runMediumDatasetExperiment."
-	gradientDescentMediumTime := '-'.
+	gradientDescentMediumTime := gradientDescentSolver runMediumDatasetExperiment.
 	
 	^ ExperimentResultDataHolder new
 		lapackLeastSquaresTime: lapackMediumlTime;
@@ -87,8 +85,7 @@ PharoExperiment >> runSmallExperimentLapack: lapackSolver pharoGradientDescent: 
 	| lapackSmallTime gradientDescentSmallTime |
 
 	lapackSmallTime := lapackSolver runSmallDatasetExperiment.
-	"gradientDescentSmallTime := gradientDescentSolver runSmallDatasetExperiment."
-	gradientDescentSmallTime := '-'.
+	gradientDescentSmallTime := gradientDescentSolver runSmallDatasetExperiment.
 
 	^ ExperimentResultDataHolder new
 		lapackLeastSquaresTime: lapackSmallTime;
