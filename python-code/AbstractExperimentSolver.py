@@ -23,31 +23,31 @@ class AbstractExperimentSolver:
 	def get_big_experiment_data(self):
 		return self.get_input_matrix_and_output_vector('big_dataset.csv')
 
-	def experiment(self, x, y):
+	def run_solver_n_times(self, x, y):
 		start_time = time.time()
 		for i in range(self.n):
 			reg = self.run_regression_solver(x, y)
 
 		return (time.time() - start_time) / self.n
 
-	def run_experiment_n_times(self, x, y):
+	def run_solver(self, x, y):
 		try:
-			return self.experiment(x, y)
+			return self.run_solver_n_times(x, y)
 		except BaseException as exception:
 			print(exception)
 			return str(exception).replace(',', '')
 
 	def run_small_experiment(self):
 		x, y = self.get_small_experiment_data()
-		return self.run_experiment_n_times(x, y)
+		return self.run_solver(x, y)
 
 	def run_medium_experiment(self):
 		x, y = self.get_medium_experiment_data()
-		return self.run_experiment_n_times(x, y)
+		return self.run_solver(x, y)
 
 	def run_big_experiment(self):
 		x, y = self.get_big_experiment_data()
-		return self.run_experiment_n_times(x, y)
+		return self.run_solver(x, y)
 	
 	def run_regression_solver(self, x, y):
 		pass
