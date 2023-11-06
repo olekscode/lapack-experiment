@@ -8,13 +8,7 @@ Class {
 }
 
 { #category : #private }
-LapackLeastSquaresSolver >> runRegressionSolverX: x y: y [
-
-	^ AILinearRegressionLeastSquares new fitX: x y: y
-]
-
-{ #category : #private }
-LapackLeastSquaresSolver >> runSolverNTimes: data [
+LapackLeastSquaresSolver >> runOnData: data times: aNumber [
 
 	| timeAccumulator x y xMatrix |
 	x := data at: 'x'.
@@ -24,7 +18,13 @@ LapackLeastSquaresSolver >> runSolverNTimes: data [
 	
 	self garbageCollect.
 
-	timeAccumulator := [ 1 to: n do: [ :i | self runRegressionSolverX: xMatrix y: y ] ] timeToRun.
+	timeAccumulator := [ 1 to: aNumber do: [ :i | self runRegressionSolverX: xMatrix y: y ] ] timeToRun.
 
-	^ (timeAccumulator / n) totalSeconds asFloat
+	^ (timeAccumulator / aNumber) totalSeconds asFloat
+]
+
+{ #category : #private }
+LapackLeastSquaresSolver >> runRegressionSolverX: x y: y [
+
+	^ AILinearRegressionLeastSquares new fitX: x y: y
 ]
