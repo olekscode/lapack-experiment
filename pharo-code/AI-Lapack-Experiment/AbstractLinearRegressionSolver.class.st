@@ -19,7 +19,7 @@ AbstractLinearRegressionSolver class >> bigDatasetFileName [
 { #category : #constants }
 AbstractLinearRegressionSolver class >> dataDirectory [
 
-	^ './pharo-local/iceberg/jordanmontt/lapack-experiment/data/' asFileReference.
+	^ LapackExperimentGitBridge root / 'data'
 ]
 
 { #category : #constants }
