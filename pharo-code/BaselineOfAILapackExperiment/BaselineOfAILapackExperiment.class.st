@@ -19,9 +19,12 @@ BaselineOfAILapackExperiment >> baseline: spec [
 		spec
 			baseline: 'NeoCSV'
 			with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
+		spec
+			baseline: 'GitBridge'
+			with: [ spec repository: 'github://jecisc/GitBridge:v1.x.x/src' ].
 
 		"Packages"
 		spec
 			package: 'AI-Lapack-Experiment'
-			with: [ spec requires: #( 'AILinearModels' ) ] ]
+			with: [ spec requires: #(AILinearModels GitBridge) ] ]
 ]
