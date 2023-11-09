@@ -4,6 +4,9 @@ I am the class that runs the experiment for all the linear regression solvers an
 Class {
 	#name : #LapackExperiment,
 	#superclass : #Object,
+	#instVars : [
+		'results'
+	],
 	#category : #'AI-Lapack-Experiment'
 }
 
@@ -31,6 +34,13 @@ LapackExperiment class >> smallDatasetFile [
 	^ self dataDirectory / 'small_dataset.csv'
 ]
 
+{ #category : #initialization }
+LapackExperiment >> initialize [
+
+	super initialize.
+	results := Dictionary new.
+]
+
 { #category : #utilities }
 LapackExperiment >> loadData: aFile [
 
@@ -51,92 +61,68 @@ LapackExperiment >> loadData: aFile [
 ]
 
 { #category : #actions }
-LapackExperiment >> outputResultSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset [
+LapackExperiment >> runBigExperimentLapack: aLapackSolver pharoGradientDescent: aGradientDescentSolver [
 
-	self printResultsSmall: resultsOfSmallDataset
-		medium: resultsOfMediumDataset
-		big: resultsOfBigDataset
-]
-
-{ #category : #actions }
-LapackExperiment >> printResultsSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset [
-
-
-	| text |
-	text := String streamContents: [ :aStream |
-		aStream 
-			<< 'Small dataset' << String cr << resultsOfSmallDataset asString << String cr << String cr
-			<< 'Medium dataset' << String cr << resultsOfMediumDataset asString << String cr << String cr
-			<< 'Big dataset' << String cr << resultsOfBigDataset asString ].
-	
-	SpTextPresenter new
-		text: text;
-		open.
-		
-	^ text
-]
-
-{ #category : #actions }
-LapackExperiment >> runBigExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver [
-
-	| data lapackTime gradientDescentTime |
-	
-	data := self loadData: self class bigDatasetFile.
-
-	lapackTime := lapackSolver runOnData: data.
-	"Takes too long, described in the paper"
-	gradientDescentTime := '-'.
-
-	^ ExperimentResultDataHolder new
-		lapackLeastSquaresTime: lapackTime;
-		pharoGradientDescentTime: gradientDescentTime
+	^ self
+		runExperimentOnData: (self loadData: self class bigDatasetFile)
+		lapackSolver: aLapackSolver
+		gradientDescentSolver: aGradientDescentSolver
 ]
 
 { #category : #api }
 LapackExperiment >> runExperiment [
 
-	| resultsOfSmallDataset resultsOfMediumDataset resultsOfBigDataset lapackSolver gradientDescentSolver |
+	| lapackSolver gradientDescentSolver |
+	
 	lapackSolver := LapackLeastSquaresSolver new.
 	gradientDescentSolver := PharoGradientDescentSolver new.
 
 	"Small experiment"
-	resultsOfSmallDataset := self runSmallExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver.
+	Transcript show: 'Running small experiment'; cr.
+	results at: 'small' put: (self
+		runSmallExperimentLapack: lapackSolver
+		pharoGradientDescent: gradientDescentSolver).
 
 	"Medium experiment"
-	resultsOfMediumDataset := self runMediumExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver.
+	Transcript show: 'Running medium experiment'; cr.
+	results at: 'medium' put: (self
+		runMediumExperimentLapack: lapackSolver
+		pharoGradientDescent: gradientDescentSolver).
 	
 	"Big experiment"
-	resultsOfBigDataset := self runBigExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver.
-
-	self outputResultSmall: resultsOfSmallDataset medium: resultsOfMediumDataset big: resultsOfBigDataset
+	"Transcript show: 'Running big experiment'; cr.
+	results at: 'big' put: (self
+		runBigExperimentLapack: lapackSolver
+		pharoGradientDescent: gradientDescentSolver)."
 ]
 
 { #category : #actions }
-LapackExperiment >> runMediumExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver [
+LapackExperiment >> runExperimentOnData: aDataset lapackSolver: aLapackSolver gradientDescentSolver: aGradientDescentSolver [
 
-	| data lapackTime gradientDescentTime |
-	
-	data := self loadData: self class mediumDatasetFile.
+	| lapackTime gradientDescentTime |
 
-	lapackTime := lapackSolver runOnData: data.
-	gradientDescentTime := gradientDescentSolver runOnData: data.
-	
+	lapackTime := aLapackSolver runOnData: aDataset.
+	gradientDescentTime := aGradientDescentSolver runOnData: aDataset.
+
 	^ ExperimentResultDataHolder new
 		lapackLeastSquaresTime: lapackTime;
 		pharoGradientDescentTime: gradientDescentTime
 ]
 
 { #category : #actions }
-LapackExperiment >> runSmallExperimentLapack: lapackSolver pharoGradientDescent: gradientDescentSolver [
-
-	| data lapackTime gradientDescentTime |
+LapackExperiment >> runMediumExperimentLapack: aLapackSolver pharoGradientDescent: aGradientDescentSolver [
 	
-	data := self loadData: self class smallDatasetFile.
+	^ self
+		runExperimentOnData: (self loadData: self class mediumDatasetFile)
+		lapackSolver: aLapackSolver
+		gradientDescentSolver: aGradientDescentSolver
+]
 
-	lapackTime := lapackSolver runOnData: data.
-	gradientDescentTime := gradientDescentSolver runOnData: data.
+{ #category : #actions }
+LapackExperiment >> runSmallExperimentLapack: aLapackSolver pharoGradientDescent: aGradientDescentSolver [
 
-	^ ExperimentResultDataHolder new
-		lapackLeastSquaresTime: lapackTime;
-		pharoGradientDescentTime: gradientDescentTime
+	^ self
+		runExperimentOnData: (self loadData: self class smallDatasetFile)
+		lapackSolver: aLapackSolver
+		gradientDescentSolver: aGradientDescentSolver
 ]
