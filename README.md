@@ -3,6 +3,7 @@
 ## Requirements
 
 - Have installed `python3`, `scikit-learn`, `pandas` and `Pharo11` on your computer.
+- Have LAPACK installed on your computer
 - Have around 7GB of free memory space in the hard drive for the datasets.
 
 ## Generating the datasets
